@@ -170,3 +170,22 @@ describe('Mission ID (docs/01 §6.5)', () => {
     expect(missionId('Ana')).toBe('ANA001-QRH');
   });
 });
+
+describe('desglose de gasto fijo y en lista', () => {
+  it('separa lo comprometido de lo que sigue siendo intención', async () => {
+    const { resumenPorQrh } = await import('./dashboard');
+    const categoria = qrh({ items: [item()] });
+    const productos = [
+      producto({ id: '1', price: 100, qty: 2, status: 'purchased' }),
+      producto({ id: '2', price: 30, status: 'savings' }),
+      producto({ id: '3', price: 500, status: 'wishlist' }),
+      producto({ id: '4', price: 40, status: 'pending' }),
+    ];
+    const [fila] = resumenPorQrh([categoria], productos, {}, TASAS, 'USD', 'corrected');
+
+    // Fijo cuenta cantidad: 100×2 + 30 = 230
+    expect(fila.gastoFijo).toBe(230);
+    // En lista suma deseos y pendientes: 500 + 40 = 540
+    expect(fila.gastoEnLista).toBe(540);
+  });
+});

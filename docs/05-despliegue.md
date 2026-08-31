@@ -94,7 +94,7 @@ para nada: las migraciones se ejecutan desde el panel de Supabase.
 
 ## Paso 4 · Crear las tablas y sembrar el catálogo
 
-En el menú lateral: **SQL Editor → New query**. Vas a ejecutar **cuatro archivos, en
+En el menú lateral: **SQL Editor → New query**. Vas a ejecutar **cinco archivos, en
 este orden**. Para cada uno: abre el archivo del repositorio, copia todo su contenido,
 pégalo en el editor y pulsa **Run**.
 
@@ -104,6 +104,7 @@ pégalo en el editor y pulsa **Run**.
 | 2 | `supabase/migrations/20260831000200_rls.sql` | Activa la seguridad por filas |
 | 3 | `supabase/migrations/20260831000300_functions.sql` | Alta de proyecto, invitaciones, diagnóstico |
 | 4 | `supabase/migrations/20260831000400_seed_catalog.sql` | Carga 13 QRH, 188 ítems, 216 combos y 7 monedas |
+| 5 | `supabase/migrations/20260831000500_alta_flexible.sql` | Alta de proyecto para el asistente de primeros pasos |
 
 El orden importa: el archivo 2 usa tablas que crea el 1, y así sucesivamente. Si algún
 `Run` da error, **no sigas al siguiente** — resuelve ese primero.
@@ -186,6 +187,7 @@ Netlify queda enganchado al repositorio:
 | «Falta conectar Supabase» tras cargar las variables | El sitio no se reconstruyó. Trigger deploy en Netlify. |
 | «Base conectada, catálogo vacío» | Falta ejecutar el archivo 4 del paso 4. |
 | «No se pudo consultar la base» | Llave mal copiada (suele sobrar un espacio), o falta el archivo 3. |
+| `PGRST125: Invalid path specified in request URL` | La URL tenía una barra final o un espacio. La app ya la limpia sola, pero conviene dejarla sin barra: `https://xxx.supabase.co` |
 | El build falla en Netlify | Mira el log completo del deploy; casi siempre es un error de tipos que también aparece con `npm run build` en local. |
 | «Deploy blocked due to a known security vulnerability» | El build compiló, pero Netlify bloquea la publicación porque la versión de Next.js tiene un CVE. Hay que subir `next` a una versión parcheada y volver a desplegar. Ver abajo. |
 | Un `Run` del paso 4 da error de tabla inexistente | Se ejecutaron en desorden. Empieza de nuevo por el archivo 1. |

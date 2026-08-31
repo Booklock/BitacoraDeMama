@@ -65,14 +65,20 @@ export default function Home() {
 
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href="/dashboard"
+            href="/crear-cuenta"
             className="rounded-lg bg-verde px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-verde-oscuro"
+          >
+            Crear mi bitácora
+          </Link>
+          <Link
+            href="/dashboard"
+            className="rounded-lg px-5 py-2.5 text-sm font-medium text-verde-oscuro ring-1 ring-crema-borde transition-colors hover:bg-white"
           >
             Ver la demostración
           </Link>
-          <span className="text-sm text-tinta-suave">
-            Con datos de ejemplo, sin crear cuenta.
-          </span>
+          <Link href="/entrar" className="text-sm text-tinta-suave underline underline-offset-2 hover:text-tinta">
+            Ya tengo cuenta
+          </Link>
         </div>
       </header>
 

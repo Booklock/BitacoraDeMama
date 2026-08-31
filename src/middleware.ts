@@ -1,6 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import { isSupabaseConfigured } from '@/lib/env';
+import { isSupabaseConfigured, supabaseAnonKey, supabaseUrl } from '@/lib/env';
 
 /** Refresca la sesión de Supabase en cada petición. Sin esto, la sesión
  *  caduca en los Server Components aunque el navegador siga con cookie. */
@@ -10,8 +10,8 @@ export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl(),
+    supabaseAnonKey(),
     {
       cookies: {
         getAll: () => request.cookies.getAll(),

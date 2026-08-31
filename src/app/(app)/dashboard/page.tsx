@@ -127,14 +127,19 @@ export default function DashboardPage() {
 
         <Tarjeta titulo={`Gasto por checklist (${moneda})`}>
           <ListaBarras
-            tono="azul"
+            leyenda={['Ya comprado', 'En lista']}
             filas={porQrh.map((q) => ({
               clave: q.code,
               etiqueta: q.nombre,
-              valor: q.gasto,
-              texto: formatearDinero(q.gasto, moneda),
+              valor: q.gastoFijo + q.gastoEnLista,
+              valorFijo: q.gastoFijo,
+              texto: formatearDinero(q.gastoFijo + q.gastoEnLista, moneda),
             }))}
           />
+          <p className="mt-3 text-xs text-tinta-suave">
+            La barra completa es lo que costaría todo. La parte verde es lo que
+            ya está comprado o apartado; la morada, lo que sigue siendo una intención.
+          </p>
         </Tarjeta>
 
         <Tarjeta titulo="¿Quién paga?">

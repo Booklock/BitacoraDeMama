@@ -7,6 +7,7 @@ const ENLACES = [
   { href: '/dashboard', texto: 'Dashboard' },
   { href: '/inventario', texto: 'Inventario' },
   { href: '/checklists', texto: 'Checklists' },
+  { href: '/configuracion', texto: 'Configuración' },
 ];
 
 export function Navegacion() {

@@ -9,6 +9,10 @@ export interface FilaQrh {
   code: string;
   nombre: string;
   gasto: number;
+  /** Comprado o apartado: dinero ya comprometido. */
+  gastoFijo: number;
+  /** Pendiente o en lista de deseos: todavía es una intención. */
+  gastoEnLista: number;
   completos: number;
   total: number;
   ratio: number;
@@ -25,10 +29,16 @@ export function resumenPorQrh(
   return catalogo.map((qrh) => {
     const suyos = products.filter((p) => p.qrhCode === qrh.code);
     const progreso = progresoDeQrh(qrh, estados, products);
+    // El desglose no depende del modo: separa lo comprometido de lo que
+    // todavía es una intención, que es la pregunta que se hace quien mira.
+    const fijos = suyos.filter((p) => ESTADOS_QUE_COMPLETAN.includes(p.status));
+    const enLista = suyos.filter((p) => !ESTADOS_QUE_COMPLETAN.includes(p.status));
     return {
       code: qrh.code,
       nombre: qrh.nameEs,
       gasto: sumar(suyos, rates, currencyCode, modo),
+      gastoFijo: sumar(fijos, rates, currencyCode, 'corrected'),
+      gastoEnLista: sumar(enLista, rates, currencyCode, 'excel'),
       ...progreso,
     };
   });

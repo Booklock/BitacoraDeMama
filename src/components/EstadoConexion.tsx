@@ -37,7 +37,7 @@ function interpretar(error: { code?: string; message?: string }): Estado {
       nivel: 'pendiente',
       titulo: 'Falta crear las tablas',
       detalle: 'La base está conectada, pero está vacía.',
-      siguiente: 'Ejecuta los 4 archivos de supabase/migrations en orden (paso 4 de la guía).',
+      siguiente: 'Ejecuta los archivos de supabase/migrations en orden (paso 4 de la guía).',
       tecnico,
     };
   }
