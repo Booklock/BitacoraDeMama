@@ -1,0 +1,2442 @@
+[
+  {
+    "id": "QRH-001",
+    "code": "QRH-001",
+    "order": 1,
+    "name_en": "Nursery",
+    "name_es": "Cuarto del bebé",
+    "display": "Nursery | Cuarto del bebé",
+    "description_es": "Todo lo necesario para preparar la habitación del bebé.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-001-01",
+        "order": 1,
+        "name_en": "Crib",
+        "name_es": "Cuna",
+        "display": "Crib | Cuna",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-01"
+        ]
+      },
+      {
+        "id": "QRH-001-02",
+        "order": 2,
+        "name_en": "Bassinet",
+        "name_es": "Moisés",
+        "display": "Bassinet | Moisés",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-02"
+        ]
+      },
+      {
+        "id": "QRH-001-03",
+        "order": 3,
+        "name_en": "Mattress",
+        "name_es": "Colchón",
+        "display": "Mattress | Colchón",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-03"
+        ]
+      },
+      {
+        "id": "QRH-001-04",
+        "order": 4,
+        "name_en": "Mattress Protector",
+        "name_es": "Protector de colchón",
+        "display": "Mattress Protector | Protector de colchón",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-04"
+        ]
+      },
+      {
+        "id": "QRH-001-05",
+        "order": 5,
+        "name_en": "Fitted Sheets",
+        "name_es": "Sábanas ajustables",
+        "display": "Fitted Sheets | Sábanas ajustables",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-05"
+        ]
+      },
+      {
+        "id": "QRH-001-06",
+        "order": 6,
+        "name_en": "Baby Monitor",
+        "name_es": "Monitor",
+        "display": "Baby Monitor | Monitor",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-06",
+          "QRH-001-07"
+        ]
+      },
+      {
+        "id": "QRH-001-07",
+        "order": 7,
+        "name_en": "Baby Monitor with Room Thermometer (Both)",
+        "name_es": "Monitor con Termómetro de Cuarto (Ambos)",
+        "display": "Baby Monitor with Room Thermometer (Both) | Monitor con Termómetro de Cuarto (Ambos)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-07"
+        ]
+      },
+      {
+        "id": "QRH-001-08",
+        "order": 8,
+        "name_en": "White Noise Machine",
+        "name_es": "Máquina de sonido",
+        "display": "White Noise Machine | Máquina de sonido",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-08",
+          "QRH-001-10"
+        ]
+      },
+      {
+        "id": "QRH-001-09",
+        "order": 9,
+        "name_en": "Night Light",
+        "name_es": "Luz nocturna",
+        "display": "Night Light | Luz nocturna",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-09",
+          "QRH-001-10"
+        ]
+      },
+      {
+        "id": "QRH-001-10",
+        "order": 10,
+        "name_en": "Night Light + White Noise Machine (Both)",
+        "name_es": "Luz Nocturna + Máquina de Sonido (Ambas)",
+        "display": "Night Light + White Noise Machine (Both) | Luz Nocturna + Máquina de Sonido (Ambas)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-10"
+        ]
+      },
+      {
+        "id": "QRH-001-11",
+        "order": 11,
+        "name_en": "Blackout Curtains",
+        "name_es": "Cortinas blackout",
+        "display": "Blackout Curtains | Cortinas blackout",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-11"
+        ]
+      },
+      {
+        "id": "QRH-001-12",
+        "order": 12,
+        "name_en": "Rocking Chair",
+        "name_es": "Mecedora",
+        "display": "Rocking Chair | Mecedora",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-12"
+        ]
+      },
+      {
+        "id": "QRH-001-13",
+        "order": 13,
+        "name_en": "Dresser",
+        "name_es": "Cómoda",
+        "display": "Dresser | Cómoda",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-13"
+        ]
+      },
+      {
+        "id": "QRH-001-14",
+        "order": 14,
+        "name_en": "Changing Table",
+        "name_es": "Cambiador",
+        "display": "Changing Table | Cambiador",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-14",
+          "QRH-003-03"
+        ]
+      },
+      {
+        "id": "QRH-001-15",
+        "order": 15,
+        "name_en": "Dresser Organizer",
+        "name_es": "Organizador de cómoda",
+        "display": "Dresser Organizer | Organizador de cómoda",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-15"
+        ]
+      },
+      {
+        "id": "QRH-001-16",
+        "order": 16,
+        "name_en": "Diaper & Cream Organizer",
+        "name_es": "Organizador de pañales y cremas",
+        "display": "Diaper & Cream Organizer | Organizador de pañales y cremas",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-16"
+        ]
+      },
+      {
+        "id": "QRH-001-17",
+        "order": 17,
+        "name_en": "Trash Bin",
+        "name_es": "Basurero",
+        "display": "Trash Bin | Basurero",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-17"
+        ]
+      },
+      {
+        "id": "QRH-001-18",
+        "order": 18,
+        "name_en": "Closet Organization",
+        "name_es": "Organización del clóset",
+        "display": "Closet Organization | Organización del clóset",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-18"
+        ]
+      },
+      {
+        "id": "QRH-001-19",
+        "order": 19,
+        "name_en": "Humidifier",
+        "name_es": "Humidificador",
+        "display": "Humidifier | Humidificador",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-19"
+        ]
+      },
+      {
+        "id": "QRH-001-20",
+        "order": 20,
+        "name_en": "Thermometer",
+        "name_es": "Termómetro ambiente",
+        "display": "Thermometer | Termómetro ambiente",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-20",
+          "QRH-001-07"
+        ]
+      },
+      {
+        "id": "QRH-001-21",
+        "order": 21,
+        "name_en": "Decor",
+        "name_es": "Decoración",
+        "display": "Decor | Decoración",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-21"
+        ]
+      },
+      {
+        "id": "QRH-001-22",
+        "order": 22,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-001-22"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-002",
+    "code": "QRH-002",
+    "order": 2,
+    "name_en": "Wardrobe",
+    "name_es": "Ropa del bebé",
+    "display": "Wardrobe | Ropa del bebé",
+    "description_es": "Toda la ropa y organización del guardarropa.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-002-01",
+        "order": 1,
+        "name_en": "Bodysuits 0-3 Months",
+        "name_es": "Bodys 0-3 Meses",
+        "display": "Bodysuits 0-3 Months | Bodys 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-01"
+        ]
+      },
+      {
+        "id": "QRH-002-02",
+        "order": 2,
+        "name_en": "Bodysuits 3-6 Months",
+        "name_es": "Bodys 3-6 Meses",
+        "display": "Bodysuits 3-6 Months | Bodys 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-02"
+        ]
+      },
+      {
+        "id": "QRH-002-03",
+        "order": 3,
+        "name_en": "Bodysuits 6-9 Months",
+        "name_es": "Bodys 6-9 Meses",
+        "display": "Bodysuits 6-9 Months | Bodys 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-03"
+        ]
+      },
+      {
+        "id": "QRH-002-04",
+        "order": 4,
+        "name_en": "Bodysuits 9-12 Months",
+        "name_es": "Bodys 9-12 Meses",
+        "display": "Bodysuits 9-12 Months | Bodys 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-04"
+        ]
+      },
+      {
+        "id": "QRH-002-05",
+        "order": 5,
+        "name_en": "Sleepers 0-3 Months",
+        "name_es": "Piyamas 0-3 Meses",
+        "display": "Sleepers 0-3 Months | Piyamas 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-05"
+        ]
+      },
+      {
+        "id": "QRH-002-06",
+        "order": 6,
+        "name_en": "Sleepers 3-6 Months",
+        "name_es": "Piyamas 3-6 Meses",
+        "display": "Sleepers 3-6 Months | Piyamas 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-06"
+        ]
+      },
+      {
+        "id": "QRH-002-07",
+        "order": 7,
+        "name_en": "Sleepers 6-9 Months",
+        "name_es": "Piyamas 6-9 Meses",
+        "display": "Sleepers 6-9 Months | Piyamas 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-07"
+        ]
+      },
+      {
+        "id": "QRH-002-08",
+        "order": 8,
+        "name_en": "Sleepers 9-12 Months",
+        "name_es": "Piyamas 9-12 Meses",
+        "display": "Sleepers 9-12 Months | Piyamas 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-08"
+        ]
+      },
+      {
+        "id": "QRH-002-09",
+        "order": 9,
+        "name_en": "Shirts 0-3 Months",
+        "name_es": "Camisas 0-3 Meses",
+        "display": "Shirts 0-3 Months | Camisas 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-09",
+          "QRH-002-17"
+        ]
+      },
+      {
+        "id": "QRH-002-10",
+        "order": 10,
+        "name_en": "Shirts 3-6 Months",
+        "name_es": "Camisas 3-6 Meses",
+        "display": "Shirts 3-6 Months | Camisas 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-10",
+          "QRH-002-18"
+        ]
+      },
+      {
+        "id": "QRH-002-11",
+        "order": 11,
+        "name_en": "Shirts 6-9 Months",
+        "name_es": "Camisas 6-9 Meses",
+        "display": "Shirts 6-9 Months | Camisas 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-11",
+          "QRH-002-19"
+        ]
+      },
+      {
+        "id": "QRH-002-12",
+        "order": 12,
+        "name_en": "Shirts 9-12 Months",
+        "name_es": "Camisas 9-12 Meses",
+        "display": "Shirts 9-12 Months | Camisas 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-12",
+          "QRH-002-20"
+        ]
+      },
+      {
+        "id": "QRH-002-13",
+        "order": 13,
+        "name_en": "Pants 0-3 Months",
+        "name_es": "Pantalones 0-3 Meses",
+        "display": "Pants 0-3 Months | Pantalones 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-13",
+          "QRH-002-17"
+        ]
+      },
+      {
+        "id": "QRH-002-14",
+        "order": 14,
+        "name_en": "Pants 3-6 Months",
+        "name_es": "Pantalones 3-6 Meses",
+        "display": "Pants 3-6 Months | Pantalones 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-14",
+          "QRH-002-18"
+        ]
+      },
+      {
+        "id": "QRH-002-15",
+        "order": 15,
+        "name_en": "Pants 6-9 Months",
+        "name_es": "Pantalones 6-9 Meses",
+        "display": "Pants 6-9 Months | Pantalones 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-15",
+          "QRH-002-19"
+        ]
+      },
+      {
+        "id": "QRH-002-16",
+        "order": 16,
+        "name_en": "Pants 9-12 Months",
+        "name_es": "Pantalones 9-12 Meses",
+        "display": "Pants 9-12 Months | Pantalones 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-16",
+          "QRH-002-20"
+        ]
+      },
+      {
+        "id": "QRH-002-17",
+        "order": 17,
+        "name_en": "Outfit Set 0-3 Months (Shirt + Pants)",
+        "name_es": "Conjunto 0-3 Meses (Camisa + Pantalón)",
+        "display": "Outfit Set 0-3 Months (Shirt + Pants) | Conjunto 0-3 Meses (Camisa + Pantalón)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-17"
+        ]
+      },
+      {
+        "id": "QRH-002-18",
+        "order": 18,
+        "name_en": "Outfit Set 3-6 Months (Shirt + Pants)",
+        "name_es": "Conjunto 3-6 Meses (Camisa + Pantalón)",
+        "display": "Outfit Set 3-6 Months (Shirt + Pants) | Conjunto 3-6 Meses (Camisa + Pantalón)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-18"
+        ]
+      },
+      {
+        "id": "QRH-002-19",
+        "order": 19,
+        "name_en": "Outfit Set 6-9 Months (Shirt + Pants)",
+        "name_es": "Conjunto 6-9 Meses (Camisa + Pantalón)",
+        "display": "Outfit Set 6-9 Months (Shirt + Pants) | Conjunto 6-9 Meses (Camisa + Pantalón)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-19"
+        ]
+      },
+      {
+        "id": "QRH-002-20",
+        "order": 20,
+        "name_en": "Outfit Set 9-12 Months (Shirt + Pants)",
+        "name_es": "Conjunto 9-12 Meses (Camisa + Pantalón)",
+        "display": "Outfit Set 9-12 Months (Shirt + Pants) | Conjunto 9-12 Meses (Camisa + Pantalón)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-20"
+        ]
+      },
+      {
+        "id": "QRH-002-21",
+        "order": 21,
+        "name_en": "Socks 0-3 Months",
+        "name_es": "Medias 0-3 Meses",
+        "display": "Socks 0-3 Months | Medias 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-21"
+        ]
+      },
+      {
+        "id": "QRH-002-22",
+        "order": 22,
+        "name_en": "Socks 3-6 Months",
+        "name_es": "Medias 3-6 Meses",
+        "display": "Socks 3-6 Months | Medias 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-22"
+        ]
+      },
+      {
+        "id": "QRH-002-23",
+        "order": 23,
+        "name_en": "Socks 6-9 Months",
+        "name_es": "Medias 6-9 Meses",
+        "display": "Socks 6-9 Months | Medias 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-23"
+        ]
+      },
+      {
+        "id": "QRH-002-24",
+        "order": 24,
+        "name_en": "Socks 9-12 Months",
+        "name_es": "Medias 9-12 Meses",
+        "display": "Socks 9-12 Months | Medias 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-24"
+        ]
+      },
+      {
+        "id": "QRH-002-25",
+        "order": 25,
+        "name_en": "Hats 0-3 Months",
+        "name_es": "Gorros 0-3 Meses",
+        "display": "Hats 0-3 Months | Gorros 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-25"
+        ]
+      },
+      {
+        "id": "QRH-002-26",
+        "order": 26,
+        "name_en": "Hats 3-6 Months",
+        "name_es": "Gorros 3-6 Meses",
+        "display": "Hats 3-6 Months | Gorros 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-26"
+        ]
+      },
+      {
+        "id": "QRH-002-27",
+        "order": 27,
+        "name_en": "Mittens 0-3 Months",
+        "name_es": "Manoplas 0-3 Meses",
+        "display": "Mittens 0-3 Months | Manoplas 0-3 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-27"
+        ]
+      },
+      {
+        "id": "QRH-002-28",
+        "order": 28,
+        "name_en": "Mittens 3-6 Months",
+        "name_es": "Manoplas 3-6 Meses",
+        "display": "Mittens 3-6 Months | Manoplas 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-28"
+        ]
+      },
+      {
+        "id": "QRH-002-29",
+        "order": 29,
+        "name_en": "Shoes 3-6 Months",
+        "name_es": "Calzado 3-6 Meses",
+        "display": "Shoes 3-6 Months | Calzado 3-6 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-29"
+        ]
+      },
+      {
+        "id": "QRH-002-30",
+        "order": 30,
+        "name_en": "Shoes 6-9 Months",
+        "name_es": "Calzado 6-9 Meses",
+        "display": "Shoes 6-9 Months | Calzado 6-9 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-30"
+        ]
+      },
+      {
+        "id": "QRH-002-31",
+        "order": 31,
+        "name_en": "Shoes 9-12 Months",
+        "name_es": "Calzado 9-12 Meses",
+        "display": "Shoes 9-12 Months | Calzado 9-12 Meses",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-31"
+        ]
+      },
+      {
+        "id": "QRH-002-32",
+        "order": 32,
+        "name_en": "Swaddles",
+        "name_es": "Arrullos",
+        "display": "Swaddles | Arrullos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-32"
+        ]
+      },
+      {
+        "id": "QRH-002-33",
+        "order": 33,
+        "name_en": "Sleep Sacks",
+        "name_es": "Sacos de dormir",
+        "display": "Sleep Sacks | Sacos de dormir",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-33"
+        ]
+      },
+      {
+        "id": "QRH-002-34",
+        "order": 34,
+        "name_en": "Going Home Outfit",
+        "name_es": "Outfit de salida",
+        "display": "Going Home Outfit | Outfit de salida",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-34"
+        ]
+      },
+      {
+        "id": "QRH-002-35",
+        "order": 35,
+        "name_en": "Hangers",
+        "name_es": "Ganchos",
+        "display": "Hangers | Ganchos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-35"
+        ]
+      },
+      {
+        "id": "QRH-002-36",
+        "order": 36,
+        "name_en": "Drawer Organizers",
+        "name_es": "Organizadores de gaveta",
+        "display": "Drawer Organizers | Organizadores de gaveta",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-36"
+        ]
+      },
+      {
+        "id": "QRH-002-37",
+        "order": 37,
+        "name_en": "Laundry Basket",
+        "name_es": "Cesto de ropa",
+        "display": "Laundry Basket | Cesto de ropa",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-37"
+        ]
+      },
+      {
+        "id": "QRH-002-38",
+        "order": 38,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-002-38"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-003",
+    "code": "QRH-003",
+    "order": 3,
+    "name_en": "Bath Time",
+    "name_es": "Hora del baño",
+    "display": "Bath Time | Hora del baño",
+    "description_es": "Todo lo relacionado con el baño del bebé.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-003-01",
+        "order": 1,
+        "name_en": "Baby Tub",
+        "name_es": "Bañera",
+        "display": "Baby Tub | Bañera",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-01",
+          "QRH-003-03"
+        ]
+      },
+      {
+        "id": "QRH-003-02",
+        "order": 2,
+        "name_en": "Bath Support",
+        "name_es": "Soporte de baño",
+        "display": "Bath Support | Soporte de baño",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-02",
+          "QRH-003-03"
+        ]
+      },
+      {
+        "id": "QRH-003-03",
+        "order": 3,
+        "name_en": "Baby Tub Set (Tub + Support + Changing Table + Thermometer)",
+        "name_es": "Set de Baño (Tina + Soporte + Cambiador + Termómetro)",
+        "display": "Baby Tub Set (Tub + Support + Changing Table + Thermometer) | Set de Baño (Tina + Soporte + Cambiador + Termómetro)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-03"
+        ]
+      },
+      {
+        "id": "QRH-003-04",
+        "order": 4,
+        "name_en": "Hooded Towels",
+        "name_es": "Toallas con capucha",
+        "display": "Hooded Towels | Toallas con capucha",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-04"
+        ]
+      },
+      {
+        "id": "QRH-003-05",
+        "order": 5,
+        "name_en": "Washcloths",
+        "name_es": "Paños",
+        "display": "Washcloths | Paños",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-05"
+        ]
+      },
+      {
+        "id": "QRH-003-06",
+        "order": 6,
+        "name_en": "Baby Soap",
+        "name_es": "Jabón",
+        "display": "Baby Soap | Jabón",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-06"
+        ]
+      },
+      {
+        "id": "QRH-003-07",
+        "order": 7,
+        "name_en": "Shampoo",
+        "name_es": "Shampoo",
+        "display": "Shampoo | Shampoo",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-07"
+        ]
+      },
+      {
+        "id": "QRH-003-08",
+        "order": 8,
+        "name_en": "Lotion",
+        "name_es": "Loción",
+        "display": "Lotion | Loción",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-08"
+        ]
+      },
+      {
+        "id": "QRH-003-09",
+        "order": 9,
+        "name_en": "Bath Thermometer",
+        "name_es": "Termómetro de baño",
+        "display": "Bath Thermometer | Termómetro de baño",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-09",
+          "QRH-003-03"
+        ]
+      },
+      {
+        "id": "QRH-003-10",
+        "order": 10,
+        "name_en": "Bath Toys",
+        "name_es": "Juguetes de baño",
+        "display": "Bath Toys | Juguetes de baño",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-10"
+        ]
+      },
+      {
+        "id": "QRH-003-11",
+        "order": 11,
+        "name_en": "Storage",
+        "name_es": "Almacenaje",
+        "display": "Storage | Almacenaje",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-11"
+        ]
+      },
+      {
+        "id": "QRH-003-12",
+        "order": 12,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-003-12"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-004",
+    "code": "QRH-004",
+    "order": 4,
+    "name_en": "Breastfeeding",
+    "name_es": "Lactancia",
+    "display": "Breastfeeding | Lactancia",
+    "description_es": "Productos específicos para la lactancia materna.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-004-01",
+        "order": 1,
+        "name_en": "Breast Pump",
+        "name_es": "Sacaleches",
+        "display": "Breast Pump | Sacaleches",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-01"
+        ]
+      },
+      {
+        "id": "QRH-004-02",
+        "order": 2,
+        "name_en": "Nursing Pillow",
+        "name_es": "Cojín de lactancia",
+        "display": "Nursing Pillow | Cojín de lactancia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-02"
+        ]
+      },
+      {
+        "id": "QRH-004-03",
+        "order": 3,
+        "name_en": "Milk Storage Bags",
+        "name_es": "Bolsas de almacenamiento",
+        "display": "Milk Storage Bags | Bolsas de almacenamiento",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-03"
+        ]
+      },
+      {
+        "id": "QRH-004-04",
+        "order": 4,
+        "name_en": "Nursing Bras",
+        "name_es": "Sujetadores de lactancia",
+        "display": "Nursing Bras | Sujetadores de lactancia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-04",
+          "QRH-009-05"
+        ]
+      },
+      {
+        "id": "QRH-004-05",
+        "order": 5,
+        "name_en": "Nipple Cream",
+        "name_es": "Crema para pezones",
+        "display": "Nipple Cream | Crema para pezones",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-05",
+          "QRH-009-06"
+        ]
+      },
+      {
+        "id": "QRH-004-06",
+        "order": 6,
+        "name_en": "Breast Pads",
+        "name_es": "Discos absorbentes",
+        "display": "Breast Pads | Discos absorbentes",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-06"
+        ]
+      },
+      {
+        "id": "QRH-004-07",
+        "order": 7,
+        "name_en": "Milk Catcher",
+        "name_es": "Recolector de leche",
+        "display": "Milk Catcher | Recolector de leche",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-07"
+        ]
+      },
+      {
+        "id": "QRH-004-08",
+        "order": 8,
+        "name_en": "Manual Pump",
+        "name_es": "Sacaleches manual",
+        "display": "Manual Pump | Sacaleches manual",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-08"
+        ]
+      },
+      {
+        "id": "QRH-004-09",
+        "order": 9,
+        "name_en": "Nursing Cover",
+        "name_es": "Cubierta de lactancia",
+        "display": "Nursing Cover | Cubierta de lactancia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-09"
+        ]
+      },
+      {
+        "id": "QRH-004-10",
+        "order": 10,
+        "name_en": "Cooler Bag",
+        "name_es": "Bolsa térmica",
+        "display": "Cooler Bag | Bolsa térmica",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-10"
+        ]
+      },
+      {
+        "id": "QRH-004-11",
+        "order": 11,
+        "name_en": "Ice Packs",
+        "name_es": "Compresas frías",
+        "display": "Ice Packs | Compresas frías",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-11"
+        ]
+      },
+      {
+        "id": "QRH-004-12",
+        "order": 12,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-004-12"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-005",
+    "code": "QRH-005",
+    "order": 5,
+    "name_en": "Feeding",
+    "name_es": "Alimentación",
+    "display": "Feeding | Alimentación",
+    "description_es": "Productos generales para alimentar al bebé.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-005-01",
+        "order": 1,
+        "name_en": "Bottles",
+        "name_es": "Biberones",
+        "display": "Bottles | Biberones",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-01"
+        ]
+      },
+      {
+        "id": "QRH-005-02",
+        "order": 2,
+        "name_en": "Bottle Nipples",
+        "name_es": "Tetinas",
+        "display": "Bottle Nipples | Tetinas",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-02"
+        ]
+      },
+      {
+        "id": "QRH-005-03",
+        "order": 3,
+        "name_en": "Bottle Brush",
+        "name_es": "Cepillo de biberones",
+        "display": "Bottle Brush | Cepillo de biberones",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-03",
+          "QRH-005-06"
+        ]
+      },
+      {
+        "id": "QRH-005-04",
+        "order": 4,
+        "name_en": "Sterilizer",
+        "name_es": "Esterilizador",
+        "display": "Sterilizer | Esterilizador",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-04",
+          "QRH-005-06"
+        ]
+      },
+      {
+        "id": "QRH-005-05",
+        "order": 5,
+        "name_en": "Drying Rack",
+        "name_es": "Escurridor",
+        "display": "Drying Rack | Escurridor",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-05",
+          "QRH-005-06"
+        ]
+      },
+      {
+        "id": "QRH-005-06",
+        "order": 6,
+        "name_en": "Sterilizer, Wash & Dry Rack (All-in-One)",
+        "name_es": "Esterilizador, Lava y Escurre (Todo en Uno)",
+        "display": "Sterilizer, Wash & Dry Rack (All-in-One) | Esterilizador, Lava y Escurre (Todo en Uno)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-06"
+        ]
+      },
+      {
+        "id": "QRH-005-07",
+        "order": 7,
+        "name_en": "Formula",
+        "name_es": "Fórmula",
+        "display": "Formula | Fórmula",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-07"
+        ]
+      },
+      {
+        "id": "QRH-005-08",
+        "order": 8,
+        "name_en": "Formula Dispenser",
+        "name_es": "Dispensador de fórmula",
+        "display": "Formula Dispenser | Dispensador de fórmula",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-08"
+        ]
+      },
+      {
+        "id": "QRH-005-09",
+        "order": 9,
+        "name_en": "Bottle Warmer",
+        "name_es": "Calentador de biberones",
+        "display": "Bottle Warmer | Calentador de biberones",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-09"
+        ]
+      },
+      {
+        "id": "QRH-005-10",
+        "order": 10,
+        "name_en": "Burp Cloths",
+        "name_es": "Paños de eructo",
+        "display": "Burp Cloths | Paños de eructo",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-10"
+        ]
+      },
+      {
+        "id": "QRH-005-11",
+        "order": 11,
+        "name_en": "Bibs",
+        "name_es": "Baberos",
+        "display": "Bibs | Baberos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-11"
+        ]
+      },
+      {
+        "id": "QRH-005-12",
+        "order": 12,
+        "name_en": "High Chair",
+        "name_es": "Silla alta",
+        "display": "High Chair | Silla alta",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-12"
+        ]
+      },
+      {
+        "id": "QRH-005-13",
+        "order": 13,
+        "name_en": "Baby Utensils",
+        "name_es": "Utensilios de bebé",
+        "display": "Baby Utensils | Utensilios de bebé",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-13"
+        ]
+      },
+      {
+        "id": "QRH-005-14",
+        "order": 14,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-005-14"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-006",
+    "code": "QRH-006",
+    "order": 6,
+    "name_en": "Medical Appointments",
+    "name_es": "Citas médicas",
+    "display": "Medical Appointments | Citas médicas",
+    "description_es": "Seguimiento médico y documentos importantes.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-006-01",
+        "order": 1,
+        "name_en": "Pediatrician",
+        "name_es": "Pediatra",
+        "display": "Pediatrician | Pediatra",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-01"
+        ]
+      },
+      {
+        "id": "QRH-006-02",
+        "order": 2,
+        "name_en": "OB/GYN",
+        "name_es": "Ginecólogo",
+        "display": "OB/GYN | Ginecólogo",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-02"
+        ]
+      },
+      {
+        "id": "QRH-006-03",
+        "order": 3,
+        "name_en": "Vaccinations",
+        "name_es": "Vacunas",
+        "display": "Vaccinations | Vacunas",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-03"
+        ]
+      },
+      {
+        "id": "QRH-006-04",
+        "order": 4,
+        "name_en": "Insurance",
+        "name_es": "Seguro",
+        "display": "Insurance | Seguro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-04"
+        ]
+      },
+      {
+        "id": "QRH-006-05",
+        "order": 5,
+        "name_en": "Birth Registration",
+        "name_es": "Registro de nacimiento",
+        "display": "Birth Registration | Registro de nacimiento",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-05"
+        ]
+      },
+      {
+        "id": "QRH-006-06",
+        "order": 6,
+        "name_en": "Medical Records",
+        "name_es": "Historial médico",
+        "display": "Medical Records | Historial médico",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-06"
+        ]
+      },
+      {
+        "id": "QRH-006-07",
+        "order": 7,
+        "name_en": "Pharmacy",
+        "name_es": "Farmacia",
+        "display": "Pharmacy | Farmacia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-07"
+        ]
+      },
+      {
+        "id": "QRH-006-08",
+        "order": 8,
+        "name_en": "Emergency Contacts",
+        "name_es": "Contactos de emergencia",
+        "display": "Emergency Contacts | Contactos de emergencia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-08"
+        ]
+      },
+      {
+        "id": "QRH-006-09",
+        "order": 9,
+        "name_en": "Medical Documents",
+        "name_es": "Documentos médicos",
+        "display": "Medical Documents | Documentos médicos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-09"
+        ]
+      },
+      {
+        "id": "QRH-006-10",
+        "order": 10,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-006-10"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-007",
+    "code": "QRH-007",
+    "order": 7,
+    "name_en": "Hospital Bag - Baby",
+    "name_es": "Maleta del bebé",
+    "display": "Hospital Bag - Baby | Maleta del bebé",
+    "description_es": "Todo lo que necesita el bebé para el hospital.  (checklist manual — márcalo tú misma conforme lo vayas completando)",
+    "manual": true,
+    "items": [
+      {
+        "id": "QRH-007-01",
+        "order": 1,
+        "name_en": "Going Home Outfit",
+        "name_es": "Outfit de salida",
+        "display": "Going Home Outfit | Outfit de salida",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-01"
+        ]
+      },
+      {
+        "id": "QRH-007-02",
+        "order": 2,
+        "name_en": "Swaddle",
+        "name_es": "Arrullo",
+        "display": "Swaddle | Arrullo",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-02"
+        ]
+      },
+      {
+        "id": "QRH-007-03",
+        "order": 3,
+        "name_en": "Blanket",
+        "name_es": "Cobija",
+        "display": "Blanket | Cobija",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-03"
+        ]
+      },
+      {
+        "id": "QRH-007-04",
+        "order": 4,
+        "name_en": "Hat",
+        "name_es": "Gorro",
+        "display": "Hat | Gorro",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-04"
+        ]
+      },
+      {
+        "id": "QRH-007-05",
+        "order": 5,
+        "name_en": "Diapers",
+        "name_es": "Pañales",
+        "display": "Diapers | Pañales",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-05"
+        ]
+      },
+      {
+        "id": "QRH-007-06",
+        "order": 6,
+        "name_en": "Wipes",
+        "name_es": "Toallitas",
+        "display": "Wipes | Toallitas",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-06"
+        ]
+      },
+      {
+        "id": "QRH-007-07",
+        "order": 7,
+        "name_en": "Pacifier",
+        "name_es": "Chupón",
+        "display": "Pacifier | Chupón",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-07"
+        ]
+      },
+      {
+        "id": "QRH-007-08",
+        "order": 8,
+        "name_en": "Bottles",
+        "name_es": "Biberones",
+        "display": "Bottles | Biberones",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-08"
+        ]
+      },
+      {
+        "id": "QRH-007-09",
+        "order": 9,
+        "name_en": "Car Seat",
+        "name_es": "Silla de auto",
+        "display": "Car Seat | Silla de auto",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-09"
+        ]
+      },
+      {
+        "id": "QRH-007-10",
+        "order": 10,
+        "name_en": "Documents",
+        "name_es": "Documentos",
+        "display": "Documents | Documentos",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-10"
+        ]
+      },
+      {
+        "id": "QRH-007-11",
+        "order": 11,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-007-11"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-008",
+    "code": "QRH-008",
+    "order": 8,
+    "name_en": "Mom & Dad Bag",
+    "name_es": "Maleta de mamá y papá",
+    "display": "Mom & Dad Bag | Maleta de mamá y papá",
+    "description_es": "Todo lo necesario para los padres en el hospital.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-008-01",
+        "order": 1,
+        "name_en": "Mom Clothes",
+        "name_es": "Ropa de mamá",
+        "display": "Mom Clothes | Ropa de mamá",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-01"
+        ]
+      },
+      {
+        "id": "QRH-008-02",
+        "order": 2,
+        "name_en": "Dad Clothes",
+        "name_es": "Ropa de papá",
+        "display": "Dad Clothes | Ropa de papá",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-02"
+        ]
+      },
+      {
+        "id": "QRH-008-03",
+        "order": 3,
+        "name_en": "Nursing Bra",
+        "name_es": "Sujetador de lactancia",
+        "display": "Nursing Bra | Sujetador de lactancia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-03"
+        ]
+      },
+      {
+        "id": "QRH-008-04",
+        "order": 4,
+        "name_en": "Toiletries",
+        "name_es": "Artículos de aseo",
+        "display": "Toiletries | Artículos de aseo",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-04"
+        ]
+      },
+      {
+        "id": "QRH-008-05",
+        "order": 5,
+        "name_en": "Chargers",
+        "name_es": "Cargadores",
+        "display": "Chargers | Cargadores",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-05"
+        ]
+      },
+      {
+        "id": "QRH-008-06",
+        "order": 6,
+        "name_en": "Camera",
+        "name_es": "Cámara",
+        "display": "Camera | Cámara",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-06"
+        ]
+      },
+      {
+        "id": "QRH-008-07",
+        "order": 7,
+        "name_en": "Snacks",
+        "name_es": "Snacks",
+        "display": "Snacks | Snacks",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-07"
+        ]
+      },
+      {
+        "id": "QRH-008-08",
+        "order": 8,
+        "name_en": "Water Bottle",
+        "name_es": "Botella de agua",
+        "display": "Water Bottle | Botella de agua",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-08"
+        ]
+      },
+      {
+        "id": "QRH-008-09",
+        "order": 9,
+        "name_en": "Pillow",
+        "name_es": "Almohada",
+        "display": "Pillow | Almohada",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-09"
+        ]
+      },
+      {
+        "id": "QRH-008-10",
+        "order": 10,
+        "name_en": "Slippers",
+        "name_es": "Pantuflas",
+        "display": "Slippers | Pantuflas",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-10"
+        ]
+      },
+      {
+        "id": "QRH-008-11",
+        "order": 11,
+        "name_en": "Documents",
+        "name_es": "Documentos",
+        "display": "Documents | Documentos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-11"
+        ]
+      },
+      {
+        "id": "QRH-008-12",
+        "order": 12,
+        "name_en": "Entertainment",
+        "name_es": "Entretenimiento",
+        "display": "Entertainment | Entretenimiento",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-12"
+        ]
+      },
+      {
+        "id": "QRH-008-13",
+        "order": 13,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-008-13"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-009",
+    "code": "QRH-009",
+    "order": 9,
+    "name_en": "Mom Recovery",
+    "name_es": "Recuperación postparto",
+    "display": "Mom Recovery | Recuperación postparto",
+    "description_es": "Productos para la recuperación física de la mamá.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-009-01",
+        "order": 1,
+        "name_en": "Peri Bottle",
+        "name_es": "Botella perineal",
+        "display": "Peri Bottle | Botella perineal",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-01"
+        ]
+      },
+      {
+        "id": "QRH-009-02",
+        "order": 2,
+        "name_en": "Ice Pads",
+        "name_es": "Compresas frías",
+        "display": "Ice Pads | Compresas frías",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-02",
+          "QRH-009-12"
+        ]
+      },
+      {
+        "id": "QRH-009-03",
+        "order": 3,
+        "name_en": "Maternity Pads",
+        "name_es": "Toallas de maternidad",
+        "display": "Maternity Pads | Toallas de maternidad",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-03"
+        ]
+      },
+      {
+        "id": "QRH-009-04",
+        "order": 4,
+        "name_en": "Disposable Underwear",
+        "name_es": "Ropa interior desechable",
+        "display": "Disposable Underwear | Ropa interior desechable",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-04",
+          "QRH-009-12"
+        ]
+      },
+      {
+        "id": "QRH-009-05",
+        "order": 5,
+        "name_en": "Nursing Bras",
+        "name_es": "Sujetadores de lactancia",
+        "display": "Nursing Bras | Sujetadores de lactancia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-05",
+          "QRH-004-04"
+        ]
+      },
+      {
+        "id": "QRH-009-06",
+        "order": 6,
+        "name_en": "Nipple Cream",
+        "name_es": "Crema para pezones",
+        "display": "Nipple Cream | Crema para pezones",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-06",
+          "QRH-004-05"
+        ]
+      },
+      {
+        "id": "QRH-009-07",
+        "order": 7,
+        "name_en": "Sitz Bath",
+        "name_es": "Baño de asiento",
+        "display": "Sitz Bath | Baño de asiento",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-07"
+        ]
+      },
+      {
+        "id": "QRH-009-08",
+        "order": 8,
+        "name_en": "Pain Relief",
+        "name_es": "Analgésicos",
+        "display": "Pain Relief | Analgésicos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-08",
+          "QRH-009-12"
+        ]
+      },
+      {
+        "id": "QRH-009-09",
+        "order": 9,
+        "name_en": "Stool Softener",
+        "name_es": "Ablandador de heces",
+        "display": "Stool Softener | Ablandador de heces",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-09"
+        ]
+      },
+      {
+        "id": "QRH-009-10",
+        "order": 10,
+        "name_en": "Water Bottle",
+        "name_es": "Botella de agua",
+        "display": "Water Bottle | Botella de agua",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-10"
+        ]
+      },
+      {
+        "id": "QRH-009-11",
+        "order": 11,
+        "name_en": "Recovery Pillow",
+        "name_es": "Almohada de recuperación",
+        "display": "Recovery Pillow | Almohada de recuperación",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-11"
+        ]
+      },
+      {
+        "id": "QRH-009-12",
+        "order": 12,
+        "name_en": "Frida Mom Kit (Disposable Underwear + Ice Pads + Pain Relief)",
+        "name_es": "Kit Frida Mom (Ropa Interior Desechable + Compresas Frías + Analgésicos)",
+        "display": "Frida Mom Kit (Disposable Underwear + Ice Pads + Pain Relief) | Kit Frida Mom (Ropa Interior Desechable + Compresas Frías + Analgésicos)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-12"
+        ]
+      },
+      {
+        "id": "QRH-009-13",
+        "order": 13,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-009-13"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-010",
+    "code": "QRH-010",
+    "order": 10,
+    "name_en": "Pregnancy Amenity Kit",
+    "name_es": "Kit de bienestar para el embarazo",
+    "display": "Pregnancy Amenity Kit | Kit de bienestar para el embarazo",
+    "description_es": "Artículos que hacen el embarazo mucho más cómodo (no obligatorios).",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-010-01",
+        "order": 1,
+        "name_en": "Compression Socks",
+        "name_es": "Medias de compresión",
+        "display": "Compression Socks | Medias de compresión",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-01"
+        ]
+      },
+      {
+        "id": "QRH-010-02",
+        "order": 2,
+        "name_en": "Belly Oil",
+        "name_es": "Aceite para vientre",
+        "display": "Belly Oil | Aceite para vientre",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-02"
+        ]
+      },
+      {
+        "id": "QRH-010-03",
+        "order": 3,
+        "name_en": "Stretch Mark Cream",
+        "name_es": "Crema antiestrías",
+        "display": "Stretch Mark Cream | Crema antiestrías",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-03"
+        ]
+      },
+      {
+        "id": "QRH-010-04",
+        "order": 4,
+        "name_en": "Magnesium",
+        "name_es": "Magnesio",
+        "display": "Magnesium | Magnesio",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-04"
+        ]
+      },
+      {
+        "id": "QRH-010-05",
+        "order": 5,
+        "name_en": "Prenatal Vitamins",
+        "name_es": "Vitaminas prenatales",
+        "display": "Prenatal Vitamins | Vitaminas prenatales",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-05"
+        ]
+      },
+      {
+        "id": "QRH-010-06",
+        "order": 6,
+        "name_en": "Pregnancy Pillow",
+        "name_es": "Almohada de embarazo",
+        "display": "Pregnancy Pillow | Almohada de embarazo",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-06"
+        ]
+      },
+      {
+        "id": "QRH-010-07",
+        "order": 7,
+        "name_en": "Belly Band",
+        "name_es": "Banda de maternidad",
+        "display": "Belly Band | Banda de maternidad",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-07"
+        ]
+      },
+      {
+        "id": "QRH-010-08",
+        "order": 8,
+        "name_en": "Heating Pad",
+        "name_es": "Almohadilla térmica",
+        "display": "Heating Pad | Almohadilla térmica",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-08"
+        ]
+      },
+      {
+        "id": "QRH-010-09",
+        "order": 9,
+        "name_en": "Lip Balm",
+        "name_es": "Bálsamo labial",
+        "display": "Lip Balm | Bálsamo labial",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-09"
+        ]
+      },
+      {
+        "id": "QRH-010-10",
+        "order": 10,
+        "name_en": "Electrolytes",
+        "name_es": "Electrolitos",
+        "display": "Electrolytes | Electrolitos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-10"
+        ]
+      },
+      {
+        "id": "QRH-010-11",
+        "order": 11,
+        "name_en": "Snacks",
+        "name_es": "Snacks",
+        "display": "Snacks | Snacks",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-11"
+        ]
+      },
+      {
+        "id": "QRH-010-12",
+        "order": 12,
+        "name_en": "Journal",
+        "name_es": "Diario",
+        "display": "Journal | Diario",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-12"
+        ]
+      },
+      {
+        "id": "QRH-010-13",
+        "order": 13,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-010-13"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-011",
+    "code": "QRH-011",
+    "order": 11,
+    "name_en": "On the Go",
+    "name_es": "Salidas y transporte",
+    "display": "On the Go | Salidas y transporte",
+    "description_es": "Todo lo relacionado con movilidad y viajes.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-011-01",
+        "order": 1,
+        "name_en": "Stroller",
+        "name_es": "Carrito",
+        "display": "Stroller | Carrito",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-01"
+        ]
+      },
+      {
+        "id": "QRH-011-02",
+        "order": 2,
+        "name_en": "Car Seat",
+        "name_es": "Silla de auto",
+        "display": "Car Seat | Silla de auto",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-02"
+        ]
+      },
+      {
+        "id": "QRH-011-03",
+        "order": 3,
+        "name_en": "Baby Carrier",
+        "name_es": "Portabebé",
+        "display": "Baby Carrier | Portabebé",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-03"
+        ]
+      },
+      {
+        "id": "QRH-011-04",
+        "order": 4,
+        "name_en": "Diaper Bag",
+        "name_es": "Pañalera",
+        "display": "Diaper Bag | Pañalera",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-04"
+        ]
+      },
+      {
+        "id": "QRH-011-05",
+        "order": 5,
+        "name_en": "Travel Organizer",
+        "name_es": "Organizador de viaje",
+        "display": "Travel Organizer | Organizador de viaje",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-05"
+        ]
+      },
+      {
+        "id": "QRH-011-06",
+        "order": 6,
+        "name_en": "Rain Cover",
+        "name_es": "Cubierta de lluvia",
+        "display": "Rain Cover | Cubierta de lluvia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-06"
+        ]
+      },
+      {
+        "id": "QRH-011-07",
+        "order": 7,
+        "name_en": "Stroller Fan",
+        "name_es": "Ventilador de carrito",
+        "display": "Stroller Fan | Ventilador de carrito",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-07"
+        ]
+      },
+      {
+        "id": "QRH-011-08",
+        "order": 8,
+        "name_en": "Cup Holder",
+        "name_es": "Portavasos",
+        "display": "Cup Holder | Portavasos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-08"
+        ]
+      },
+      {
+        "id": "QRH-011-09",
+        "order": 9,
+        "name_en": "Car Mirror",
+        "name_es": "Espejo de auto",
+        "display": "Car Mirror | Espejo de auto",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-09"
+        ]
+      },
+      {
+        "id": "QRH-011-10",
+        "order": 10,
+        "name_en": "Car Organizer",
+        "name_es": "Organizador de auto",
+        "display": "Car Organizer | Organizador de auto",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-10"
+        ]
+      },
+      {
+        "id": "QRH-011-11",
+        "order": 11,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-011-11"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-012",
+    "code": "QRH-012",
+    "order": 12,
+    "name_en": "Landing",
+    "name_es": "Llegada a casa",
+    "display": "Landing | Llegada a casa",
+    "description_es": "Checklist para verificar que todo esté listo antes de llegar a casa.  (checklist manual — márcalo tú misma conforme lo vayas completando)",
+    "manual": true,
+    "items": [
+      {
+        "id": "QRH-012-01",
+        "order": 1,
+        "name_en": "Car Seat Installed",
+        "name_es": "Silla de auto instalada",
+        "display": "Car Seat Installed | Silla de auto instalada",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-01"
+        ]
+      },
+      {
+        "id": "QRH-012-02",
+        "order": 2,
+        "name_en": "Nursery Ready",
+        "name_es": "Cuarto listo",
+        "display": "Nursery Ready | Cuarto listo",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-02"
+        ]
+      },
+      {
+        "id": "QRH-012-03",
+        "order": 3,
+        "name_en": "Feeding Station Ready",
+        "name_es": "Estación de alimentación lista",
+        "display": "Feeding Station Ready | Estación de alimentación lista",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-03"
+        ]
+      },
+      {
+        "id": "QRH-012-04",
+        "order": 4,
+        "name_en": "Diaper Station Ready",
+        "name_es": "Estación de pañales lista",
+        "display": "Diaper Station Ready | Estación de pañales lista",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-04"
+        ]
+      },
+      {
+        "id": "QRH-012-05",
+        "order": 5,
+        "name_en": "Bassinet Ready",
+        "name_es": "Moisés listo",
+        "display": "Bassinet Ready | Moisés listo",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-05"
+        ]
+      },
+      {
+        "id": "QRH-012-06",
+        "order": 6,
+        "name_en": "First Pediatric Appointment",
+        "name_es": "Primera cita pediátrica",
+        "display": "First Pediatric Appointment | Primera cita pediátrica",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-06"
+        ]
+      },
+      {
+        "id": "QRH-012-07",
+        "order": 7,
+        "name_en": "Home Essentials Stocked",
+        "name_es": "Esenciales del hogar listos",
+        "display": "Home Essentials Stocked | Esenciales del hogar listos",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-07"
+        ]
+      },
+      {
+        "id": "QRH-012-08",
+        "order": 8,
+        "name_en": "Family Contact List",
+        "name_es": "Lista de contactos familiares",
+        "display": "Family Contact List | Lista de contactos familiares",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-08"
+        ]
+      },
+      {
+        "id": "QRH-012-09",
+        "order": 9,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": false,
+        "satisfied_by": [
+          "QRH-012-09"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "QRH-013",
+    "code": "QRH-013",
+    "order": 13,
+    "name_en": "Baby Care",
+    "name_es": "Cuidado del bebé",
+    "display": "Baby Care | Cuidado del bebé",
+    "description_es": "Productos de cuidado, salud básica e higiene diaria del bebé.",
+    "manual": false,
+    "items": [
+      {
+        "id": "QRH-013-01",
+        "order": 1,
+        "name_en": "Skin Cream",
+        "name_es": "Crema para la piel",
+        "display": "Skin Cream | Crema para la piel",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-01"
+        ]
+      },
+      {
+        "id": "QRH-013-02",
+        "order": 2,
+        "name_en": "Diaper Rash Cream",
+        "name_es": "Crema para el culito",
+        "display": "Diaper Rash Cream | Crema para el culito",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-02"
+        ]
+      },
+      {
+        "id": "QRH-013-03",
+        "order": 3,
+        "name_en": "Vitamins & Supplements",
+        "name_es": "Vitaminas o suplementos",
+        "display": "Vitamins & Supplements | Vitaminas o suplementos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-03"
+        ]
+      },
+      {
+        "id": "QRH-013-04",
+        "order": 4,
+        "name_en": "Thermometer",
+        "name_es": "Termómetro",
+        "display": "Thermometer | Termómetro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-04"
+        ]
+      },
+      {
+        "id": "QRH-013-05",
+        "order": 5,
+        "name_en": "Nasal Aspirator",
+        "name_es": "Saca mocos",
+        "display": "Nasal Aspirator | Saca mocos",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-05",
+          "QRH-013-07"
+        ]
+      },
+      {
+        "id": "QRH-013-06",
+        "order": 6,
+        "name_en": "Nebulizer",
+        "name_es": "Nebulizador",
+        "display": "Nebulizer | Nebulizador",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-06",
+          "QRH-013-07"
+        ]
+      },
+      {
+        "id": "QRH-013-07",
+        "order": 7,
+        "name_en": "Nasal Aspirator + Nebulizer (Both)",
+        "name_es": "Saca Mocos + Nebulizador (Ambos)",
+        "display": "Nasal Aspirator + Nebulizer (Both) | Saca Mocos + Nebulizador (Ambos)",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-07"
+        ]
+      },
+      {
+        "id": "QRH-013-08",
+        "order": 8,
+        "name_en": "Hand Sanitizer",
+        "name_es": "Alcohol en gel",
+        "display": "Hand Sanitizer | Alcohol en gel",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-08"
+        ]
+      },
+      {
+        "id": "QRH-013-09",
+        "order": 9,
+        "name_en": "Emergency Kit",
+        "name_es": "Kit de emergencia",
+        "display": "Emergency Kit | Kit de emergencia",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-09"
+        ]
+      },
+      {
+        "id": "QRH-013-10",
+        "order": 10,
+        "name_en": "Other",
+        "name_es": "Otro",
+        "display": "Other | Otro",
+        "qty_needed": 1,
+        "auto": true,
+        "satisfied_by": [
+          "QRH-013-10"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,136 @@
+{
+  "currencies": [
+    {
+      "label": "EUR - Euro (€)",
+      "symbol": "€",
+      "code": "EUR",
+      "rate_to_usd": 1.144
+    },
+    {
+      "label": "USD - Dólar Estadounidense ($)",
+      "symbol": "$",
+      "code": "USD",
+      "rate_to_usd": 1
+    },
+    {
+      "label": "CRC - Colón Costarricense (₡)",
+      "symbol": "₡",
+      "code": "CRC",
+      "rate_to_usd": 0.0022
+    },
+    {
+      "label": "MXN - Peso Mexicano ($)",
+      "symbol": "$",
+      "code": "MXN",
+      "rate_to_usd": 0.0575
+    },
+    {
+      "label": "GTQ - Quetzal Guatemalteco (Q)",
+      "symbol": "Q",
+      "code": "GTQ",
+      "rate_to_usd": 0.1311
+    },
+    {
+      "label": "COP - Peso Colombiano ($)",
+      "symbol": "$",
+      "code": "COP",
+      "rate_to_usd": 0.000303
+    },
+    {
+      "label": "ARS - Peso Argentino ($)",
+      "symbol": "$",
+      "code": "ARS",
+      "rate_to_usd": 0.000671
+    },
+    {
+      "label": "Otra (define tu símbolo abajo)",
+      "symbol": null,
+      "code": "OTRA",
+      "rate_to_usd": null
+    }
+  ],
+  "default_currency": "EUR - Euro (€)",
+  "payer_roles": [
+    {
+      "role": "Nombre de la madre",
+      "default_name": "Nombre de la Madre"
+    },
+    {
+      "role": "Nombre del padre",
+      "default_name": "Nombre del Padre"
+    },
+    {
+      "role": "Regalos",
+      "default_name": "Regalo (Baby Shower)"
+    },
+    {
+      "role": "Gasto compartido",
+      "default_name": "Común"
+    },
+    {
+      "role": "Persona adicional 1",
+      "default_name": null
+    },
+    {
+      "role": "Persona adicional 2",
+      "default_name": null
+    },
+    {
+      "role": "Persona adicional 3",
+      "default_name": null
+    }
+  ],
+  "flight_plan_defaults": {
+    "baby_name": "Nombre del Bebé",
+    "father_lastname": "Apellido del Padre",
+    "mother_lastname": "Apellido de la Madre"
+  },
+  "status_options": [
+    "Purchased",
+    "Pending",
+    "Wishlist",
+    "Savings"
+  ],
+  "status_completes_checklist": [
+    "Purchased",
+    "Savings"
+  ],
+  "stage_options": [
+    "Pregnancy",
+    "0-3 Months",
+    "3-6 Months",
+    "6-9 Months",
+    "9-12 Months",
+    "All Stages"
+  ],
+  "status_colors": {
+    "Purchased": "#DADC7C",
+    "Pending": "#F2EDB9",
+    "Wishlist": "#BEE4ED",
+    "Savings": "#8ACCE0"
+  },
+  "inventory_columns": [
+    "Product Name",
+    "QRH Category",
+    "Checklist Item",
+    "Brand",
+    "Store",
+    "URL",
+    "Price",
+    "Currency",
+    "Converted Price",
+    "Qty",
+    "Status",
+    "Purchased By",
+    "Notas",
+    "Stage",
+    "qrh_id",
+    "item_id"
+  ],
+  "excel_limits": {
+    "inventory_rows": "4:210 (207 filas)",
+    "checklist_rows": "7:242",
+    "items": 188,
+    "qrh": 13
+  }
+}
