@@ -187,6 +187,7 @@ Netlify queda enganchado al repositorio:
 | «Base conectada, catálogo vacío» | Falta ejecutar el archivo 4 del paso 4. |
 | «No se pudo consultar la base» | Llave mal copiada (suele sobrar un espacio), o falta el archivo 3. |
 | El build falla en Netlify | Mira el log completo del deploy; casi siempre es un error de tipos que también aparece con `npm run build` en local. |
+| «Deploy blocked due to a known security vulnerability» | El build compiló, pero Netlify bloquea la publicación porque la versión de Next.js tiene un CVE. Hay que subir `next` a una versión parcheada y volver a desplegar. Ver abajo. |
 | Un `Run` del paso 4 da error de tabla inexistente | Se ejecutaron en desorden. Empieza de nuevo por el archivo 1. |
 
 ## Sobre volver a ejecutar las migraciones
@@ -195,3 +196,37 @@ Los cuatro archivos se pueden ejecutar de nuevo sin miedo a duplicar datos: la s
 usa `on conflict do nothing`. Lo que **no** es repetible es el archivo 1, porque crea
 tablas y tipos que ya existirían. Si necesitas empezar de cero, es más limpio crear un
 proyecto nuevo en Supabase que intentar limpiar el existente.
+
+
+## Bloqueos de seguridad de Netlify
+
+Netlify analiza las dependencias y **bloquea la publicación** si detecta una versión
+de Next.js con una vulnerabilidad conocida, aunque el build haya compilado bien. El
+mensaje es `Deploy blocked due to a known security vulnerability`.
+
+No es un fallo del proyecto ni de la configuración: es Netlify protegiendo el sitio.
+La solución es siempre subir la dependencia y volver a desplegar.
+
+```bash
+npm install next@latest eslint-config-next@latest
+npm audit            # debe terminar en "found 0 vulnerabilities"
+npm run build        # comprobar que sigue compilando
+npm run typecheck
+npm run lint
+```
+
+Luego se suben `package.json` y `package-lock.json`, y el push dispara un deploy nuevo.
+
+**Cuidado con la versión que sugiere el mensaje de error.** Puede nombrar una versión
+que no existe o que no es la adecuada; conviene comprobar cuáles hay realmente
+publicadas antes de fijar una:
+
+```bash
+npm view next versions --json
+```
+
+**Sobre `npm audit fix --force`:** no lo uses a ciegas. Suele proponer un salto de
+versión mayor —de Next 15 a 16, por ejemplo— con cambios que rompen. Es preferible
+subir a la última versión de la misma línea mayor y, si queda alguna vulnerabilidad en
+una dependencia anidada, resolverla con `overrides` en `package.json`. Este proyecto ya
+usa uno para forzar una versión parcheada de `postcss` dentro de Next.
