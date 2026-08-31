@@ -38,6 +38,11 @@ Esto implementa la decisión D5: registrarse y entrar directo, sin pasar por el 
 
 ## Paso 3 · Copiar las llaves
 
+**Aquí no se crea nada.** Supabase genera la API sola al crear el proyecto: cada
+tabla queda accesible automáticamente. La pantalla llamada «API» es sólo donde se
+**leen** la URL y la llave. Si ves un botón de «Create new API key», ignóralo: la
+llave que necesitas ya existe.
+
 1. **Project Settings → API**.
 2. Copia estos dos valores, que usarás en el paso 5:
    - **Project URL** → será `NEXT_PUBLIC_SUPABASE_URL`
