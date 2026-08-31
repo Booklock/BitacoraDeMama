@@ -43,6 +43,41 @@ Esto implementa la decisión D5: registrarse y entrar directo, sin pasar por el 
    - **Project URL** → será `NEXT_PUBLIC_SUPABASE_URL`
    - **anon public** (o *publishable key*) → será `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
+### Cómo se llaman las llaves
+
+Hay dos «nombres» distintos y sólo uno es obligatorio.
+
+**El nombre de la variable de entorno: exacto.** El código busca esos textos
+literales, así que se copian tal cual, en mayúsculas y con guiones bajos:
+
+| Nombre exacto | Valor |
+|---------------|-------|
+| `NEXT_PUBLIC_SUPABASE_URL` | la Project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | la llave pública |
+
+El prefijo `NEXT_PUBLIC_` no es decorativo: Next.js sólo expone al navegador las
+variables que empiezan así. Quitárselo rompe la app, y ponérselo a la llave secreta
+la publicaría.
+
+**El nombre que Supabase pide al crear una llave: libre.** Es sólo una etiqueta para
+distinguirlas. Una convención que funciona: `bitacora-web-produccion` para la de
+Netlify y `bitacora-web-local` para desarrollo, de modo que revocar una no deje a
+nadie adivinando cuál era.
+
+**Equivalencia con los nombres nuevos de Supabase.** Supabase renombró sus llaves, así
+que puede que veas *publishable* y *secret* en lugar de *anon* y *service_role*:
+
+| Supabase la llama | Va en | ¿Secreta? |
+|-------------------|-------|-----------|
+| `anon` / `publishable` (`sb_publishable_…`) | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | No |
+| `service_role` / `secret` (`sb_secret_…`) | ninguna variable, por ahora | **Sí** |
+
+Aunque nuestra variable se llame `ANON_KEY`, ahí va la *publishable*: el nombre de la
+variable es interno del proyecto y no tiene por qué coincidir con el de Supabase.
+
+> **Regla para no equivocarse:** si la llave empieza por `sb_secret_` o dice
+> `service_role`, no va en ninguna variable que empiece por `NEXT_PUBLIC_`.
+
 **Sobre la seguridad de estas llaves.** La llave `anon` viaja al navegador y eso es
 correcto por diseño: no es un secreto. Lo que protege los datos es Row Level Security,
 que ya está configurado en las migraciones — cada quien sólo puede leer los proyectos
