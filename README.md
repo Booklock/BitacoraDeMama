@@ -15,7 +15,8 @@ calcula solo: los **13 checklists QRH** se marcan cuando algo se compra, y el
 
 ## Estado
 
-Etapa 1 de 10 — análisis del Excel y catálogo semilla. Ver
+Etapa 1 de 10 completada — análisis del Excel y catálogo semilla. Stack definido:
+Next.js + TypeScript + Supabase. Ver
 [`docs/03-modulos-y-etapas.md`](docs/03-modulos-y-etapas.md) para el plan completo.
 
 ## Documentación
@@ -25,6 +26,7 @@ Etapa 1 de 10 — análisis del Excel y catálogo semilla. Ver
 | [`docs/01-analisis-excel.md`](docs/01-analisis-excel.md) | Ingeniería inversa del libro: hojas, fórmulas, validaciones, marca |
 | [`docs/02-modelo-de-datos.md`](docs/02-modelo-de-datos.md) | Esquema relacional y estado derivado |
 | [`docs/03-modulos-y-etapas.md`](docs/03-modulos-y-etapas.md) | Módulos y las 10 etapas de desarrollo |
+| [`docs/04-decisiones.md`](docs/04-decisiones.md) | Decisiones de producto y arquitectura, con su porqué |
 
 ## Datos semilla
 

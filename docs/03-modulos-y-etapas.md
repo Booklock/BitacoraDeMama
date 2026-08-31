@@ -33,7 +33,9 @@ y assets de marca extraídos del libro.
 
 Andamiaje del proyecto y traducción de la identidad del Excel a tokens.
 
-- Stack, estructura de carpetas, linting, tests, CI
+- Next.js + TypeScript + Supabase (decisión D1): estructura, linting, tests, CI
+- Esquema en Postgres y siembra del catálogo desde `data/seed/`
+- Autenticación y modelo de proyectos
 - Tokens de color y tipografía (Poppins) desde §8 del análisis
 - Componentes base: botón, input, select, tabla, badge de estado, tarjeta, barra de progreso
 - Layout con la navegación de 5 secciones = las 5 hojas visibles
@@ -90,7 +92,7 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 - Tabla y gráfico de progreso y gasto por cada uno de los 13 QRH
 - Gráfico ¿Quién paga? (7 pagadores + Savings)
 - Gráfico de completado por etapa (6 etapas)
-- Separación de *Gastado* vs *Proyectado* (hallazgo §9.1) — sujeto a su decisión
+- Separación de *Gastado* vs *Proyectado* (hallazgos §9.1 y §9.2, decisión D2)
 
 ## Etapa 8 — Bienvenida y onboarding (M6)
 
@@ -98,11 +100,12 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 - Asistente de primer uso: moneda → pagadores → datos del bebé, en ese orden
 - Explicación de la nomenclatura de aviación
 
-## Etapa 9 — Persistencia, cuentas y export
+## Etapa 9 — Compartir, export e importación
 
-Se decide en la Etapa 2 si esto va desde el principio o al final.
+Las cuentas y el esquema en Supabase entran desde la Etapa 2 (ver decisión D1), así
+que aquí queda lo que se construye encima.
 
-- Cuentas y proyectos (una bitácora por bebé; varias familias)
+- Proyectos múltiples (una bitácora por bebé; varias familias)
 - Compartir el proyecto entre mamá y papá
 - Export a Excel/CSV — importante: es el formato que ya conocen sus clientas
 - Importar un Excel existente para migrar a las usuarias que ya compraron la plantilla
