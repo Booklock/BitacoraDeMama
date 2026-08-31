@@ -1,0 +1,20 @@
+# Despliegue de Bitácora de Mamá en Netlify — ver docs/05-despliegue.md
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Runtime oficial de Next.js. Netlify lo instala solo, pero declararlo evita
+# sorpresas si cambia el autodetectado.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
