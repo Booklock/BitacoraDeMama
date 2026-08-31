@@ -35,7 +35,10 @@ Andamiaje del proyecto y traducción de la identidad del Excel a tokens.
 
 - Next.js + TypeScript + Supabase (decisión D1): estructura, linting, tests, CI
 - Esquema en Postgres y siembra del catálogo desde `data/seed/`
-- Autenticación y modelo de proyectos
+- Autenticación simple: correo y contraseña, **sin verificación** (D5)
+- Registro individual o en pareja mediante código de invitación (D4):
+  `project_members` y `project_invites`
+- Tabla única `fx_rates` con USD como base, sembrada desde el Excel (D7)
 - Tokens de color y tipografía (Poppins) desde §8 del análisis
 - Componentes base: botón, input, select, tabla, badge de estado, tarjeta, barra de progreso
 - Layout con la navegación de 5 secciones = las 5 hojas visibles
@@ -46,7 +49,8 @@ Andamiaje del proyecto y traducción de la identidad del Excel a tokens.
 El módulo más importante y el que más se beneficia de ir antes que la UI.
 Funciones puras, sin base de datos, cubiertas por tests que replican casos del Excel.
 
-- `convertPrice()` — §6.1, incluida la moneda «Otra»
+- `convertPrice()` — §6.1, incluida la moneda «Otra», con tasa congelada para lo ya
+  comprado y tasa actual para lo pendiente (D7)
 - `resolveItemCode()` — §6.2
 - `isItemCompleted()` — §6.3: suma de `Qty`, `Purchased`+`Savings`, `N/A`, y **combos**
 - `qrhProgress()`, `globalProgress()`, `spendByQrh()`, `spendByPayer()`, `stageProgress()`
@@ -55,11 +59,15 @@ Funciones puras, sin base de datos, cubiertas por tests que replican casos del E
 
 ## Etapa 4 — Módulo Configuración (M2)
 
+- **Asistente de primer uso pre-rellenado** (D6): moneda deducida del navegador,
+  pagador con el nombre de quien se registró, y sólo los datos del bebé en blanco
 - Selector de moneda con las 7 monedas + «Otra» (símbolo y tasa manuales)
 - Gestión de pagadores: 4 roles por defecto renombrables + hasta 3 adicionales
 - Datos del bebé y apellidos → Flight Plan
 - `Mission ID` calculado en vivo
-- Al cambiar la moneda, **todos** los precios convertidos se recalculan (como el Excel)
+- Al cambiar la moneda, **todos** los precios convertidos se re-expresan (como el Excel)
+- Invitar a la pareja: generar código, ver quién tiene acceso, revocar
+- Estado de los tipos de cambio: fecha de actualización y corrección manual
 
 ## Etapa 5 — Módulo Inventario (M3)
 
@@ -68,7 +76,10 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 - Tabla con alta, edición y borrado en línea
 - **Select en cascada**: al elegir QRH Category se filtran los Checklist Item de esa
   categoría (el `INDIRECT` del Excel)
-- Precio + moneda de compra → precio convertido en vivo, en columna de sólo lectura
+- Precio + moneda de compra → convertido en vivo; se muestran **ambos**, el original
+  en su moneda y el convertido, porque conviven compras en varias monedas
+- Al marcar como comprado se congela la tasa del día (D7)
+- Cada producto registra quién lo agregó, útil cuando el proyecto es de dos personas
 - Estado con los 4 colores del Excel; alerta naranja de la regla `Savings` + pagador ≠ Regalo
 - Filtros y orden por categoría, estado, etapa y pagador (el `autoFilter` del Excel)
 - Sin límite de 207 filas
@@ -97,16 +108,17 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 ## Etapa 8 — Bienvenida y onboarding (M6)
 
 - Contenido de la hoja `Bienvenida` como pantalla de inicio
-- Asistente de primer uso: moneda → pagadores → datos del bebé, en ese orden
 - Explicación de la nomenclatura de aviación
+- El asistente de primer uso se adelanta a la Etapa 4 (D6); aquí queda el repaso
+  para quien lo saltó
 
 ## Etapa 9 — Compartir, export e importación
 
 Las cuentas y el esquema en Supabase entran desde la Etapa 2 (ver decisión D1), así
 que aquí queda lo que se construye encima.
 
-- Proyectos múltiples (una bitácora por bebé; varias familias)
-- Compartir el proyecto entre mamá y papá
+- Proyectos múltiples (una bitácora por bebé)
+- Invitación por enlace además del código, y traspaso de `owner`
 - Export a Excel/CSV — importante: es el formato que ya conocen sus clientas
 - Importar un Excel existente para migrar a las usuarias que ya compraron la plantilla
 

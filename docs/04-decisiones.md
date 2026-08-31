@@ -45,3 +45,85 @@ porcentajes sin un beneficio claro en esta fase.
 **Consecuencias.** El esquema deja preparada la puerta: `checklist_items` lleva
 `project_id` nulo para los ítems del sistema, de modo que permitir ítems propios más
 adelante no exige migrar datos. Se reevalúa en la Etapa 9.
+
+## D4 · Registro individual o en pareja, sobre un proyecto compartido
+
+**Decisión.** Una pareja son **dos usuarios dentro de un mismo proyecto**, no una
+cuenta compartida. Al registrarse se elige:
+
+- **«Empiezo yo»** → se crea el proyecto, la persona queda como `owner` y pasa al
+  asistente de configuración.
+- **«Tengo un código»** → se une a un proyecto existente como `member`, se salta el
+  asistente (la configuración ya existe) y sólo elige con qué pagador se identifica.
+
+El `owner` genera un código de invitación de un solo uso desde Configuración. Ambos
+ven exactamente el mismo dashboard, inventario y checklists, y ambos pueden editar.
+
+**Por qué.** Compartir una sola cuenta y contraseña es lo que la gente hace cuando no
+le damos alternativa, y rompe la trazabilidad: no se sabe quién registró qué. Con dos
+usuarios sobre un proyecto se conserva el dashboard único que pidieron, y además cada
+producto puede guardar `created_by`.
+
+**Consecuencias.** `project_members` y `project_invites` entran en el esquema desde la
+Etapa 2. Sin permisos granulares en v1: `owner` y `member` editan lo mismo, y la única
+diferencia es invitar y borrar el proyecto.
+
+## D5 · Login simple, sin verificación de correo
+
+**Decisión.** Correo y contraseña con Supabase Auth, con la confirmación por correo
+**desactivada**: la persona se registra y entra directo.
+
+**Por qué.** Es una app que se usa por primera vez con poco tiempo y muchas ganas de
+ver el checklist; un paso de verificación en medio pierde usuarias.
+
+**Consecuencias y riesgo asumido.** Si alguien se equivoca al escribir su correo, no
+podrá recuperar la contraseña, porque el correo nunca se comprobó. Para mitigarlo sin
+reintroducir fricción: se pide el correo dos veces en el registro, y se ofrece
+verificarlo después desde Configuración (opcional, con un aviso discreto). La
+verificación obligatoria puede activarse más adelante sin migrar datos — es un
+interruptor de Supabase.
+
+## D6 · La configuración se arma sola al crear la cuenta
+
+**Decisión.** Terminado el registro individual, se entra a un asistente de tres pasos
+—moneda → personas → bebé— con todo **pre-rellenado** en vez de vacío:
+
+| Campo | Valor inicial |
+|-------|---------------|
+| Moneda | deducida del idioma y región del navegador, y confirmable |
+| Tasas | ya cargadas desde `fx_rates` |
+| Pagador «madre» o «padre» | el nombre con el que se registró la persona |
+| «Regalo (Baby Shower)» y «Común» | los del Excel |
+| Personas adicionales | vacías, opcionales |
+| Nombre del bebé y apellidos | únicos campos realmente en blanco |
+| Mission ID | se genera solo al escribir el nombre del bebé |
+
+Se puede saltar el asistente y quedarse con los valores por defecto; la app funciona
+igual, y Configuración queda accesible siempre.
+
+**Por qué.** El Excel obliga a configurar antes de empezar («¡hazlo primero!») porque
+no puede adivinar nada. La app sí puede, y la configuración deja de ser un trámite.
+
+**Consecuencias.** Quien se une con un código **no** ve el asistente: hereda la
+configuración del proyecto y sólo elige su pagador.
+
+## D7 · Tipos de cambio alineados en una sola tabla, con tasa congelada al comprar
+
+**Decisión.** Una única tabla `fx_rates` con USD como moneda base interna, refrescada
+desde una API pública. Cada producto guarda la moneda en que se compró; al pasar a
+`Purchased` o `Savings` se **congela** la tasa de esa moneda a USD. La conversión a la
+moneda que la familia ve usa siempre la tasa **actual** de esa moneda.
+
+**Por qué.** Es normal que en un mismo proyecto haya compras en tres monedas (la
+abuela en EUR, la mamá en CRC, Amazon en USD). Y hay que distinguir dos cosas que el
+Excel mezcla: lo que algo **costó** es un hecho del pasado que no debe moverse cuando
+fluctúa el mercado, mientras que la moneda en que se **muestra** es una preferencia que
+sí debe re-expresar todo el histórico. Las tasas del Excel, además, están fijas desde
+mediados de 2026 y el propio archivo pide actualizarlas a mano.
+
+**Consecuencias.** `fx_rates` y los campos `fx_rate_to_usd` / `fx_rate_locked_at` del
+producto entran en la Etapa 2. `Pending` y `Wishlist` no congelan tasa. Si la API
+falla se conserva la última tasa buena, nunca se cae a `1` como hace el Excel ante una
+moneda desconocida. La UI muestra la fecha de la última actualización y permite
+corregir a mano, conservando la moneda «Otra» del Excel. El detalle está en la sección
+«Monedas y tipos de cambio» de `02-modelo-de-datos.md`.
