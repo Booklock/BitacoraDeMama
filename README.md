@@ -15,8 +15,10 @@ calcula solo: los **13 checklists QRH** se marcan cuando algo se compra, y el
 
 ## Estado
 
-Etapa 2 de 10 — la app despliega, la base de datos está definida y el catálogo se
-siembra solo. Falta la autenticación y las pantallas de producto.
+Dashboard, inventario y checklists ya funcionan en **modo demostración**, con
+datos de ejemplo y sin cuenta: `/dashboard`, `/inventario`, `/checklists`.
+El motor de cálculo replica las fórmulas del Excel y está cubierto por tests.
+Falta la autenticación y conectar las pantallas a Supabase.
 Ver [`docs/03-modulos-y-etapas.md`](docs/03-modulos-y-etapas.md) para el plan completo.
 
 **Para ponerla en marcha:** [`docs/05-despliegue.md`](docs/05-despliegue.md) — guía

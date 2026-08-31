@@ -44,7 +44,7 @@ Andamiaje del proyecto y traducción de la identidad del Excel a tokens.
 - Layout con la navegación de 5 secciones = las 5 hojas visibles
 - Etiquetas bilingües `EN | ES` como convención transversal
 
-## Etapa 3 — Motor de cálculo (M1)
+## Etapa 3 — Motor de cálculo (M1) ✅
 
 El módulo más importante y el que más se beneficia de ir antes que la UI.
 Funciones puras, sin base de datos, cubiertas por tests que replican casos del Excel.
@@ -69,7 +69,7 @@ Funciones puras, sin base de datos, cubiertas por tests que replican casos del E
 - Invitar a la pareja: generar código, ver quién tiene acceso, revocar
 - Estado de los tipos de cambio: fecha de actualización y corrección manual
 
-## Etapa 5 — Módulo Inventario (M3)
+## Etapa 5 — Módulo Inventario (M3) — hecho en modo demostración
 
 La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 
@@ -85,7 +85,7 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 - Sin límite de 207 filas
 - Vista de tarjetas en móvil — una tabla de 14 columnas no funciona en teléfono
 
-## Etapa 6 — Módulo Checklists QRH (M4)
+## Etapa 6 — Módulo Checklists QRH (M4) — hecho en modo demostración
 
 - 13 secciones con encabezado bilingüe, descripción y barra de progreso
 - Estado `Completed` calculado por el motor de la Etapa 3
@@ -96,7 +96,7 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
   no puede mostrar y que aquí es natural
 - Notas por ítem
 
-## Etapa 7 — Módulo Dashboard (M5)
+## Etapa 7 — Módulo Dashboard (M5) — hecho en modo demostración
 
 - Flight Plan con `MISSION <id>`, aircraft, captain, first officer, passenger
 - KPIs: % global de QRH y presupuesto total
@@ -141,3 +141,20 @@ E1 Catálogo
 ```
 
 E3 y E4 pueden avanzar en paralelo. E6 y E7 dependen de que E5 tenga datos reales.
+
+
+---
+
+## Modo demostración
+
+Las pantallas de inventario, checklists y dashboard están construidas y
+navegables en `/dashboard`, `/inventario` y `/checklists`, con datos de ejemplo
+y **sin necesidad de cuenta**. El estado vive en el navegador de quien la abre.
+
+Se adelantaron a la autenticación a propósito: sirven para validar el producto y
+enseñarlo antes de invertir en el registro. Los componentes ya consumen el motor
+de cálculo real, así que conectarlos a Supabase es cambiar de dónde salen los
+datos, no reescribir las pantallas.
+
+Lo que falta para que dejen de ser demostración: registro y login (Etapa 4), y
+sustituir `ProveedorDemo` por consultas a Supabase.

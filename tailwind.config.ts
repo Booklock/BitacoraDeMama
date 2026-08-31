@@ -12,6 +12,17 @@ export default {
         alerta:   '#F8D7A4',
         crema:    { DEFAULT: '#F4F2E9', calido: '#F1EDEA', arena: '#EDE5DF', borde: '#E3E3E3' },
         tinta:    { DEFAULT: '#1F1F1F', fuerte: '#1A1A1A', suave: '#6B6B63' },
+        // Acentos de estado. Los del Excel (#DADC7C, #F2EDB9…) se conservan
+        // como relleno suave, pero no se distinguen entre sí: comprado y
+        // pendiente quedan a ΔE 8.4 en visión normal, por debajo del umbral
+        // de 15. Estos tonos sí pasan la validación y van como punto sólido
+        // junto a la etiqueta de texto, que nunca falta.
+        estado: {
+          comprado:  '#2E8B63',
+          pendiente: '#A8760A',
+          deseo:     '#A84A8F',
+          apartado:  '#3D7FD1',
+        },
       },
       fontFamily: {
         sans: ['var(--font-poppins)', 'Poppins', 'system-ui', 'sans-serif'],

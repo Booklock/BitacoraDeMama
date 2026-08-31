@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import { EstadoConexion } from '@/components/EstadoConexion';
 
@@ -61,6 +62,18 @@ export default function Home() {
         <p className="rounded-xl2 bg-azul-claro px-5 py-3 text-sm italic text-tinta-suave">
           “Not just checklists — flight procedures for the most important journey of your life.”
         </p>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/dashboard"
+            className="rounded-lg bg-verde px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-verde-oscuro"
+          >
+            Ver la demostración
+          </Link>
+          <span className="text-sm text-tinta-suave">
+            Con datos de ejemplo, sin crear cuenta.
+          </span>
+        </div>
       </header>
 
       <EstadoConexion />
