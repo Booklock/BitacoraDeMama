@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useApp } from '@/lib/demo/EstadoApp';
+import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BadgeEstado, Tarjeta } from '@/components/ui';
 import { FormularioProducto } from '@/components/FormularioProducto';
 import { nombreItem, nombreQrh } from '@/lib/catalogo';

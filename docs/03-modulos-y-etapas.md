@@ -57,7 +57,7 @@ Funciones puras, sin base de datos, cubiertas por tests que replican casos del E
 - `missionId()` — §6.5, con normalización de acentos
 - **Criterio de aceptación:** cargar el escenario del Excel y obtener los mismos números
 
-## Etapa 4 — Módulo Configuración (M2)
+## Etapa 4 — Módulo Configuración (M2) ✅
 
 - **Asistente de primer uso pre-rellenado** (D6): moneda deducida del navegador,
   pagador con el nombre de quien se registró, y sólo los datos del bebé en blanco
@@ -69,7 +69,7 @@ Funciones puras, sin base de datos, cubiertas por tests que replican casos del E
 - Invitar a la pareja: generar código, ver quién tiene acceso, revocar
 - Estado de los tipos de cambio: fecha de actualización y corrección manual
 
-## Etapa 5 — Módulo Inventario (M3) — hecho en modo demostración
+## Etapa 5 — Módulo Inventario (M3) ✅
 
 La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 
@@ -85,7 +85,7 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
 - Sin límite de 207 filas
 - Vista de tarjetas en móvil — una tabla de 14 columnas no funciona en teléfono
 
-## Etapa 6 — Módulo Checklists QRH (M4) — hecho en modo demostración
+## Etapa 6 — Módulo Checklists QRH (M4) ✅
 
 - 13 secciones con encabezado bilingüe, descripción y barra de progreso
 - Estado `Completed` calculado por el motor de la Etapa 3
@@ -96,7 +96,7 @@ La única pantalla de captura, y por lo tanto la que más cuidado de UX merece.
   no puede mostrar y que aquí es natural
 - Notas por ítem
 
-## Etapa 7 — Módulo Dashboard (M5) — hecho en modo demostración
+## Etapa 7 — Módulo Dashboard (M5) ✅
 
 - Flight Plan con `MISSION <id>`, aircraft, captain, first officer, passenger
 - KPIs: % global de QRH y presupuesto total
@@ -145,16 +145,29 @@ E3 y E4 pueden avanzar en paralelo. E6 y E7 dependen de que E5 tenga datos reale
 
 ---
 
-## Modo demostración
+## Los dos modos
 
-Las pantallas de inventario, checklists y dashboard están construidas y
-navegables en `/dashboard`, `/inventario` y `/checklists`, con datos de ejemplo
-y **sin necesidad de cuenta**. El estado vive en el navegador de quien la abre.
+Las mismas pantallas sirven a dos situaciones, y `ProveedorDatos` decide cuál
+según haya sesión y proyecto:
 
-Se adelantaron a la autenticación a propósito: sirven para validar el producto y
-enseñarlo antes de invertir en el registro. Los componentes ya consumen el motor
-de cálculo real, así que conectarlos a Supabase es cambiar de dónde salen los
-datos, no reescribir las pantallas.
+| | **Demostración** | **Nube** |
+|---|---|---|
+| Cuándo | sin cuenta, o sin Supabase configurado | con sesión y bitácora creada |
+| Dónde viven los datos | `localStorage` de ese navegador | Supabase |
+| Se comparte | no | sí, con quien tenga acceso al proyecto |
 
-Lo que falta para que dejen de ser demostración: registro y login (Etapa 4), y
-sustituir `ProveedorDemo` por consultas a Supabase.
+Las pantallas no saben en cuál están: consumen `useApp()` igual en los dos
+casos. Un aviso en la cabecera lo dice explícitamente, porque confundir datos
+de ejemplo con la bitácora real sería el peor malentendido posible.
+
+Si la nube falla al cargar, la app cae a demostración en vez de quedarse en
+blanco.
+
+## Lo que falta
+
+- Editar un producto ya registrado (hoy sólo se agrega y se borra).
+- Refresco automático de tipos de cambio por API (D7): hoy se usan las tasas
+  sembradas desde el Excel.
+- Export e importación desde Excel (Etapa 9).
+- Ver quién registró cada producto cuando el proyecto es de dos personas: el
+  dato se guarda en `created_by`, falta mostrarlo.

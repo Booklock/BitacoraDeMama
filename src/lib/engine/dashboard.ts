@@ -50,14 +50,19 @@ export function gastoPorPagador(
   rates: FxRates,
   currencyCode: string,
   modo: ModoGasto,
-): { nombre: string; total: number }[] {
-  return payers.map((payer) => ({
-    nombre: payer.name,
-    total: sumar(
-      products.filter((p) => p.payerId === payer.id),
-      rates, currencyCode, modo,
-    ),
-  }));
+): { nombre: string; total: number; fijo: number; enLista: number }[] {
+  return payers.map((payer) => {
+    const suyos = products.filter((p) => p.payerId === payer.id);
+    const fijo = sumar(
+      suyos.filter((p) => ESTADOS_QUE_COMPLETAN.includes(p.status)),
+      rates, currencyCode, 'corrected',
+    );
+    const enLista = sumar(
+      suyos.filter((p) => !ESTADOS_QUE_COMPLETAN.includes(p.status)),
+      rates, currencyCode, 'excel',
+    );
+    return { nombre: payer.name, total: sumar(suyos, rates, currencyCode, modo), fijo, enLista };
+  });
 }
 
 export function totalApartado(

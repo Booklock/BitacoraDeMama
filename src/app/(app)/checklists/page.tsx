@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useApp } from '@/lib/demo/EstadoApp';
+import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BarraProgreso, Tarjeta } from '@/components/ui';
 import {
   estaCompleto, estadoDe, etiquetaCantidad, productosQueCompletan, progresoDeQrh,

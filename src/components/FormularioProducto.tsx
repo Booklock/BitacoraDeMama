@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useApp } from '@/lib/demo/EstadoApp';
+import { useApp } from '@/lib/estado/ProveedorDatos';
 import { ETIQUETAS_ETAPA } from '@/lib/engine/dashboard';
 import type { Stage, Status } from '@/lib/engine/types';
 

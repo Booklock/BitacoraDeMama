@@ -15,10 +15,12 @@ calcula solo: los **13 checklists QRH** se marcan cuando algo se compra, y el
 
 ## Estado
 
-Dashboard, inventario y checklists ya funcionan en **modo demostración**, con
-datos de ejemplo y sin cuenta: `/dashboard`, `/inventario`, `/checklists`.
-El motor de cálculo replica las fórmulas del Excel y está cubierto por tests.
-Falta la autenticación y conectar las pantallas a Supabase.
+La app funciona de punta a punta: se crea una cuenta, se configura la bitácora,
+se registran productos y los checklists y el dashboard se actualizan solos. Todo
+se guarda en Supabase y lo ve también quien comparta el proyecto.
+
+Sin cuenta, las mismas pantallas funcionan como **demostración** con datos de
+ejemplo guardados en el navegador.
 Ver [`docs/03-modulos-y-etapas.md`](docs/03-modulos-y-etapas.md) para el plan completo.
 
 **Para ponerla en marcha:** [`docs/05-despliegue.md`](docs/05-despliegue.md) — guía

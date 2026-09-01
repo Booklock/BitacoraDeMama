@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
-import { ProveedorDemo } from '@/lib/demo/EstadoApp';
+import { ProveedorDatos } from '@/lib/estado/ProveedorDatos';
 import { Navegacion } from '@/components/Navegacion';
+import { AvisoModo } from '@/components/AvisoModo';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ProveedorDemo>
+    <ProveedorDatos>
       <div className="min-h-screen">
         <header className="border-b border-crema-borde bg-white/60">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3">
@@ -17,16 +18,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <div className="mx-auto max-w-6xl px-5 py-3">
-          <p className="rounded-lg bg-amarillo-suave px-3 py-2 text-xs text-tinta-suave">
-            Estás viendo una <strong className="font-semibold text-tinta">demostración</strong> con
-            datos de ejemplo. Puedes agregar, editar y borrar: los cambios se guardan en tu
-            navegador y no salen de tu equipo.
-          </p>
-        </div>
+        <AvisoModo />
 
         <main className="mx-auto max-w-6xl px-5 pb-16">{children}</main>
       </div>
-    </ProveedorDemo>
+    </ProveedorDatos>
   );
 }

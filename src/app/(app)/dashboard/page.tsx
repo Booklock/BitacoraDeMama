@@ -1,17 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { useApp } from '@/lib/demo/EstadoApp';
+import { useMemo } from 'react';
+import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BarraProgreso, Cifra, ListaBarras, Tarjeta } from '@/components/ui';
 import { formatearDinero } from '@/lib/engine/money';
 import {
   flightPlan, gastoPorPagador, progresoPorEtapa, resumenGeneral, resumenPorQrh, totalApartado,
 } from '@/lib/engine/dashboard';
-import type { ModoGasto } from '@/lib/engine/types';
 
 export default function DashboardPage() {
   const { productos, estados, ajustes, pagadores, tasas, catalogo } = useApp();
-  const [modo, setModo] = useState<ModoGasto>('corrected');
   const moneda = ajustes.currencyCode;
 
   const plan = useMemo(() => flightPlan(ajustes, pagadores), [ajustes, pagadores]);
@@ -20,17 +18,17 @@ export default function DashboardPage() {
     [catalogo, productos, estados, tasas, moneda],
   );
   const porQrh = useMemo(
-    () => resumenPorQrh(catalogo, productos, estados, tasas, moneda, modo),
-    [catalogo, productos, estados, tasas, moneda, modo],
+    () => resumenPorQrh(catalogo, productos, estados, tasas, moneda, 'corrected'),
+    [catalogo, productos, estados, tasas, moneda],
   );
   const porPagador = useMemo(
-    () => gastoPorPagador(pagadores, productos, tasas, moneda, modo),
-    [pagadores, productos, tasas, moneda, modo],
+    () => gastoPorPagador(pagadores, productos, tasas, moneda, 'corrected'),
+    [pagadores, productos, tasas, moneda],
   );
   const porEtapa = useMemo(() => progresoPorEtapa(productos), [productos]);
   const apartado = useMemo(
-    () => totalApartado(productos, tasas, moneda, modo),
-    [productos, tasas, moneda, modo],
+    () => totalApartado(productos, tasas, moneda, 'corrected'),
+    [productos, tasas, moneda],
   );
 
   return (
@@ -71,7 +69,7 @@ export default function DashboardPage() {
 
         <Tarjeta>
           <Cifra
-            etiqueta="Gastado"
+            etiqueta="Ya comprado"
             valor={formatearDinero(general.gastado, moneda)}
             apoyo="Comprado y apartado, precio × cantidad"
           />
@@ -79,38 +77,11 @@ export default function DashboardPage() {
 
         <Tarjeta>
           <Cifra
-            etiqueta="Proyectado"
-            valor={formatearDinero(general.proyectado, moneda)}
-            apoyo="Incluye pendientes y lista de deseos"
+            etiqueta="Falta por comprar"
+            valor={formatearDinero(general.proyectado - general.gastado, moneda)}
+            apoyo={`${formatearDinero(general.proyectado, moneda)} si compras todo lo de la lista`}
           />
         </Tarjeta>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className="text-tinta-suave">Cómo se calcula el gasto:</span>
-        <div className="flex gap-1 rounded-lg bg-white/70 p-1 ring-1 ring-crema-borde">
-          {([
-            ['corrected', 'Corregido'],
-            ['excel', 'Como el Excel'],
-          ] as const).map(([valor, texto]) => (
-            <button
-              key={valor}
-              type="button"
-              onClick={() => setModo(valor)}
-              aria-pressed={modo === valor}
-              className={`rounded-md px-3 py-1 transition-colors ${
-                modo === valor ? 'bg-verde text-white' : 'text-tinta-suave hover:text-tinta'
-              }`}
-            >
-              {texto}
-            </button>
-          ))}
-        </div>
-        <span className="text-xs text-tinta-suave">
-          {modo === 'corrected'
-            ? 'Sólo lo comprado o apartado, multiplicado por la cantidad.'
-            : 'Réplica del Excel: suma todo, incluida la lista de deseos, sin multiplicar por cantidad.'}
-        </span>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -144,22 +115,18 @@ export default function DashboardPage() {
 
         <Tarjeta titulo="¿Quién paga?">
           <ListaBarras
-            tono="azul"
-            filas={[
-              ...porPagador.map((p) => ({
-                clave: p.nombre,
-                etiqueta: p.nombre,
-                valor: p.total,
-                texto: formatearDinero(p.total, moneda),
-              })),
-              {
-                clave: '__apartado',
-                etiqueta: 'Apartado',
-                valor: apartado,
-                texto: formatearDinero(apartado, moneda),
-              },
-            ]}
+            leyenda={['Ya comprado', 'En lista']}
+            filas={porPagador.map((p) => ({
+              clave: p.nombre,
+              etiqueta: p.nombre,
+              valor: p.fijo + p.enLista,
+              valorFijo: p.fijo,
+              texto: formatearDinero(p.fijo + p.enLista, moneda),
+            }))}
           />
+          <p className="mt-3 text-xs text-tinta-suave">
+            De lo apartado para regalos hay {formatearDinero(apartado, moneda)}.
+          </p>
         </Tarjeta>
 
         <Tarjeta titulo="Comprado por etapa">
