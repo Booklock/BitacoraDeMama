@@ -188,6 +188,7 @@ Netlify queda enganchado al repositorio:
 | «Base conectada, catálogo vacío» | Falta ejecutar el archivo 4 del paso 4. |
 | «No se pudo consultar la base» | Llave mal copiada (suele sobrar un espacio), o falta el archivo 3. |
 | `PGRST125: Invalid path specified in request URL` | La URL tenía una barra final o un espacio. La app ya la limpia sola, pero conviene dejarla sin barra: `https://xxx.supabase.co` |
+| `Forbidden use of secret API key in browser` | Se configuró la llave **secreta** en vez de la pública. **Hay que revocarla**: ver abajo. |
 | El build falla en Netlify | Mira el log completo del deploy; casi siempre es un error de tipos que también aparece con `npm run build` en local. |
 | «Deploy blocked due to a known security vulnerability» | El build compiló, pero Netlify bloquea la publicación porque la versión de Next.js tiene un CVE. Hay que subir `next` a una versión parcheada y volver a desplegar. Ver abajo. |
 | Un `Run` del paso 4 da error de tabla inexistente | Se ejecutaron en desorden. Empieza de nuevo por el archivo 1. |
@@ -232,3 +233,33 @@ versión mayor —de Next 15 a 16, por ejemplo— con cambios que rompen. Es pre
 subir a la última versión de la misma línea mayor y, si queda alguna vulnerabilidad en
 una dependencia anidada, resolverla con `overrides` en `package.json`. Este proyecto ya
 usa uno para forzar una versión parcheada de `postcss` dentro de Next.
+
+
+## Si se publicó la llave secreta por error
+
+Síntoma: `Forbidden use of secret API key in browser` al crear una cuenta.
+
+**Qué pasó.** En `NEXT_PUBLIC_SUPABASE_ANON_KEY` quedó la llave `service_role`
+(o `sb_secret_…`) en vez de la pública. Las variables que empiezan por
+`NEXT_PUBLIC_` **se empaquetan dentro del JavaScript** que el sitio sirve al
+navegador, así que esa llave quedó publicada: cualquiera que abriera el código
+fuente podía leerla. Y la llave secreta **se salta Row Level Security por
+completo** — con ella se puede leer y borrar los datos de cualquier familia.
+
+Supabase se negó a usarla en el navegador, y eso evitó el daño en el momento,
+pero no deshace la publicación. Hay que rotarla.
+
+**Qué hacer, en este orden:**
+
+1. **Revocar la llave.** En Supabase: **Project Settings → API Keys**. Si es una
+   llave `sb_secret_…`, bórrala con **Revoke**. Si es el `service_role` clásico,
+   usa **Roll / Regenerate JWT secret** — eso invalida la llave publicada.
+2. **Poner la llave correcta** en Netlify: la **anon / publishable**, la que es
+   pública por diseño.
+3. **Volver a desplegar** para que el bundle deje de contener la vieja.
+4. Revisar en Supabase que no haya datos raros creados mientras tanto. En un
+   proyecto recién creado, sin usuarias reales, el riesgo práctico es bajo.
+
+**Cómo se evita ahora.** La app comprueba el formato de la llave al arrancar y
+se niega a funcionar si detecta una secreta, con un mensaje explicando qué
+hacer, en vez de desplegarla en silencio.

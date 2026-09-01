@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Aviso, Boton, CampoTexto } from '@/components/CampoTexto';
+import { mensajeDeError } from '@/lib/mensajes';
 
 export default function CrearCuentaPage() {
   const router = useRouter();
@@ -41,14 +42,14 @@ export default function CrearCuentaPage() {
         setError(
           /already registered/i.test(err.message)
             ? 'Ya existe una cuenta con ese correo. Entra en vez de crearla.'
-            : err.message,
+            : mensajeDeError(err),
         );
         return;
       }
       router.push('/primeros-pasos');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo crear la cuenta.');
+      setError(mensajeDeError(e));
     } finally {
       setCargando(false);
     }

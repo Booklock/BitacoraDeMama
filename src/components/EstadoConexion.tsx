@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase-server';
-import { isSupabaseConfigured } from '@/lib/env';
+import { hayLlaveSecretaExpuesta, isSupabaseConfigured } from '@/lib/env';
 
 type Estado = {
   nivel: 'ok' | 'pendiente' | 'error';
@@ -42,6 +42,19 @@ function interpretar(error: { code?: string; message?: string }): Estado {
     };
   }
 
+  // Llave secreta en el navegador: Supabase se niega, y con razón.
+  if (/secret API key|Forbidden use/i.test(mensaje)) {
+    return {
+      nivel: 'error',
+      titulo: 'Hay una llave secreta publicada',
+      detalle:
+        'La llave configurada es la secreta (service_role), no la pública. Supabase se niega a usarla en el navegador.',
+      siguiente:
+        'Revócala en Supabase, pon la llave pública (anon / publishable) y vuelve a desplegar.',
+      tecnico,
+    };
+  }
+
   // Llave inválida.
   if (/Invalid API key|JWT|apikey/i.test(mensaje)) {
     return {
@@ -79,6 +92,17 @@ async function revisar(): Promise<Estado> {
       titulo: 'Falta conectar Supabase',
       detalle: 'La app está desplegada, pero aún no tiene sus variables de entorno.',
       siguiente: 'Paso 3 de la guía: copiar la Project URL y la llave pública.',
+    };
+  }
+
+  if (hayLlaveSecretaExpuesta()) {
+    return {
+      nivel: 'error',
+      titulo: 'Hay una llave secreta publicada',
+      detalle:
+        'NEXT_PUBLIC_SUPABASE_ANON_KEY contiene la llave service_role, que se salta la seguridad por filas. Al ir en una variable NEXT_PUBLIC_ queda dentro del JavaScript que ve cualquiera.',
+      siguiente:
+        'Revócala en Supabase (Project Settings → API), pon en su lugar la llave pública y vuelve a desplegar.',
     };
   }
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Aviso, Boton, CampoTexto } from '@/components/CampoTexto';
+import { mensajeDeError } from '@/lib/mensajes';
 
 /** Segundo camino de registro (decisión D4): quien recibe un código se une a
  *  una bitácora existente y no pasa por el asistente — la configuración ya
@@ -36,7 +37,7 @@ export default function UnirsePage() {
       if (entrada.error) {
         const alta = await supabase.auth.signUp({ email: correo.trim(), password: clave });
         if (alta.error) {
-          setError(alta.error.message);
+          setError(mensajeDeError(alta.error));
           return;
         }
       }
@@ -45,14 +46,14 @@ export default function UnirsePage() {
         p_code: codigo.trim().toUpperCase(),
       });
       if (err) {
-        setError(err.message);
+        setError(mensajeDeError(err));
         return;
       }
 
       router.push('/configuracion');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo completar.');
+      setError(mensajeDeError(e));
     } finally {
       setCargando(false);
     }

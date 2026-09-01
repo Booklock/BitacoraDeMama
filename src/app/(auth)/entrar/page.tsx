@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Aviso, Boton, CampoTexto } from '@/components/CampoTexto';
+import { mensajeDeError } from '@/lib/mensajes';
 
 export default function EntrarPage() {
   const router = useRouter();
@@ -27,14 +28,14 @@ export default function EntrarPage() {
         setError(
           /Invalid login/i.test(err.message)
             ? 'El correo o la contraseña no coinciden.'
-            : err.message,
+            : mensajeDeError(err),
         );
         return;
       }
       router.push('/configuracion');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo entrar.');
+      setError(mensajeDeError(e));
     } finally {
       setCargando(false);
     }

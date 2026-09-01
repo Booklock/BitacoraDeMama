@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Aviso, Boton, CampoTexto } from '@/components/CampoTexto';
+import { mensajeDeError } from '@/lib/mensajes';
 import { Logo } from '@/components/Logo';
 import { crearProyecto, type PagadorNuevo } from '@/lib/datos/proyecto';
 import { MONEDAS, monedaDelNavegador } from '@/lib/monedas';
@@ -77,11 +78,7 @@ export default function PrimerosPasosPage() {
       router.push('/configuracion');
       router.refresh();
     } catch (e) {
-      setError(
-        e instanceof Error
-          ? `No se pudo crear tu bitácora: ${e.message}`
-          : 'No se pudo crear tu bitácora.',
-      );
+      setError(`No se pudo crear tu bitácora. ${mensajeDeError(e)}`);
     } finally {
       setCargando(false);
     }
