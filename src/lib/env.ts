@@ -45,17 +45,40 @@ function decodificarBase64(texto: string): string {
  * Security por completo. Preferimos que la app falle con un mensaje claro
  * antes que arrancar con la llave equivocada.
  */
-export function esLlaveSecreta(llave: string): boolean {
+export type TipoDeLlave =
+  | { secreta: true; motivo: string }
+  | { secreta: false; formato: 'publishable' | 'jwt-anon' | 'desconocido' };
+
+export function analizarLlave(llave: string): TipoDeLlave {
   const limpia = llave.trim();
-  if (limpia.startsWith('sb_secret_')) return true;
+
+  if (limpia.startsWith('sb_secret_')) {
+    return { secreta: true, motivo: 'empieza por «sb_secret_»' };
+  }
+  if (limpia.startsWith('sb_publishable_')) {
+    return { secreta: false, formato: 'publishable' };
+  }
 
   const partes = limpia.split('.');
-  if (partes.length !== 3) return false;
-  try {
-    return /"role"\s*:\s*"service_role"/.test(decodificarBase64(partes[1]));
-  } catch {
-    return false;
+  if (partes.length === 3) {
+    try {
+      const carga = decodificarBase64(partes[1]);
+      if (/"role"\s*:\s*"service_role"/.test(carga)) {
+        return { secreta: true, motivo: 'es un JWT con el rol «service_role»' };
+      }
+      if (/"role"\s*:\s*"anon"/.test(carga)) {
+        return { secreta: false, formato: 'jwt-anon' };
+      }
+    } catch {
+      // Carga ilegible: no se puede afirmar que sea secreta.
+    }
   }
+
+  return { secreta: false, formato: 'desconocido' };
+}
+
+export function esLlaveSecreta(llave: string): boolean {
+  return analizarLlave(llave).secreta;
 }
 
 export const supabaseUrl = () =>
@@ -68,12 +91,15 @@ export const supabaseAnonKey = () => {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   ).trim();
 
-  if (esLlaveSecreta(llave)) {
+  const analisis = analizarLlave(llave);
+  if (analisis.secreta) {
     throw new Error(
-      'NEXT_PUBLIC_SUPABASE_ANON_KEY contiene una llave SECRETA (service_role). ' +
-        'Esa llave se salta la seguridad por filas y, al ir en una variable ' +
-        'NEXT_PUBLIC_, queda publicada en el navegador. Revócala en Supabase y ' +
-        'usa la llave pública (anon / publishable). Ver docs/05-despliegue.md.',
+      `La llave configurada ${analisis.motivo}, así que es la SECRETA. ` +
+        'Al ir en una variable NEXT_PUBLIC_ queda publicada en el navegador, y ' +
+        'esa llave se salta la seguridad por filas. Revócala en Supabase y usa ' +
+        'la pública: en Project Settings → API Keys, la fila «anon public» o ' +
+        '«Publishable key» (empieza por «sb_publishable_» o por «eyJ» con rol anon). ' +
+        'Ver docs/05-despliegue.md.',
     );
   }
 
@@ -84,10 +110,3 @@ export const supabaseAnonKey = () => {
  *  funcione en un despliegue recién creado, antes de conectar la base. */
 export const isSupabaseConfigured = () =>
   Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
-/** Detecta la llave equivocada sin lanzar, para que el diagnóstico de la
- *  portada pueda explicarlo en vez de romperse. */
-export const hayLlaveSecretaExpuesta = () => {
-  const llave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return Boolean(llave && esLlaveSecreta(llave));
-};

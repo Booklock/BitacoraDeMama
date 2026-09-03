@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase-server';
-import { hayLlaveSecretaExpuesta, isSupabaseConfigured } from '@/lib/env';
+import { analizarLlave, isSupabaseConfigured } from '@/lib/env';
 
 type Estado = {
   nivel: 'ok' | 'pendiente' | 'error';
@@ -95,14 +95,15 @@ async function revisar(): Promise<Estado> {
     };
   }
 
-  if (hayLlaveSecretaExpuesta()) {
+  const llave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const analisis = llave ? analizarLlave(llave) : null;
+  if (analisis?.secreta) {
     return {
       nivel: 'error',
       titulo: 'Hay una llave secreta publicada',
-      detalle:
-        'NEXT_PUBLIC_SUPABASE_ANON_KEY contiene la llave service_role, que se salta la seguridad por filas. Al ir en una variable NEXT_PUBLIC_ queda dentro del JavaScript que ve cualquiera.',
+      detalle: `La llave configurada ${analisis.motivo}, así que es la secreta: se salta la seguridad por filas y, al ir en una variable NEXT_PUBLIC_, queda dentro del JavaScript que ve cualquiera.`,
       siguiente:
-        'Revócala en Supabase (Project Settings → API), pon en su lugar la llave pública y vuelve a desplegar.',
+        'Revócala en Supabase (Project Settings → API Keys), pon la llave «anon public» o «Publishable key», y vuelve a desplegar.',
     };
   }
 

@@ -144,6 +144,12 @@ select count(*) as combos from item_satisfied_by; -- debe dar 216
    Si ya pulsaste Deploy sin ellas, no pasa nada: añádelas en
    **Site configuration → Environment variables** y luego **Deploys → Trigger deploy →
    Deploy site** para que el sitio se reconstruya con las variables cargadas.
+
+   > **Cambiar una variable NO cambia el sitio ya publicado.** Las variables que
+   > empiezan por `NEXT_PUBLIC_` se **incrustan en el JavaScript durante el build**,
+   > no se leen cuando alguien abre la página. Si corriges una llave y no vuelves a
+   > desplegar, el sitio sigue sirviendo la anterior y el error no se va. Después de
+   > tocar cualquier variable: **Deploys → Trigger deploy → Clear cache and deploy site**.
 6. **Deploy**. El primer build tarda dos o tres minutos.
 
 ## Paso 6 · Comprobar que está viva
