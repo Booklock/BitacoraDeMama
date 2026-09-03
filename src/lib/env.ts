@@ -10,14 +10,23 @@ function required(name: string, value: string | undefined): string {
 }
 
 /**
- * Normaliza la URL del proyecto. Al copiarla desde el panel de Supabase es
- * fácil que se cuele una barra final o un espacio; con la barra, el cliente
- * arma rutas con doble barra y PostgREST responde PGRST125 ("Invalid path
- * specified in request URL"). Se limpia aquí en vez de exigir que la variable
- * venga perfecta.
+ * Normaliza la URL del proyecto.
+ *
+ * En el panel de Supabase conviven la Project URL y los endpoints de la API
+ * (`.../rest/v1/`, `.../auth/v1/`), y es fácil copiar el que no toca. El
+ * cliente añade esas rutas por su cuenta, así que si vienen ya en la variable
+ * quedan duplicadas y PostgREST responde PGRST125 ("Invalid path specified in
+ * request URL"). Lo mismo pasa con una barra final o un espacio al pegar.
+ *
+ * Una Project URL nunca lleva ruta, así que recortarla aquí es seguro y evita
+ * un error que sólo se ve en producción.
  */
 export function normalizarUrl(valor: string): string {
-  return valor.trim().replace(/\/+$/, '');
+  return valor
+    .trim()
+    .replace(/\/+$/, '')
+    .replace(/\/(rest|auth|storage|realtime|functions)\/v\d+$/i, '')
+    .replace(/\/+$/, '');
 }
 
 function decodificarBase64(texto: string): string {

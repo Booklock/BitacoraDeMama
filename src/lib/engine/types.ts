@@ -47,6 +47,8 @@ export interface Product {
   stage: Stage | null;
   /** Tasa congelada al comprar (decisión D7). Null mientras no se compra. */
   fxRateToUsd?: number | null;
+  /** Quién se apuntó a regalarlo desde el enlace de la familia. */
+  reservedByName?: string | null;
 }
 
 export interface Payer {

@@ -52,6 +52,19 @@ llave que necesitas ya existe.
 
 Hay dos «nombres» distintos y sólo uno es obligatorio.
 
+**Ojo con cuál URL copias.** En el panel conviven la **Project URL** y los
+endpoints de la API. La que va en la variable es la Project URL, **sin ruta**:
+
+| | |
+|---|---|
+| ✅ Correcto | `https://xxxxx.supabase.co` |
+| ❌ Es el endpoint REST | `https://xxxxx.supabase.co/rest/v1/` |
+| ❌ Sobra la barra final | `https://xxxxx.supabase.co/` |
+
+El cliente añade `/rest/v1` por su cuenta; si ya viene en la variable, la ruta
+se duplica y sale `PGRST125`. La app recorta esos sufijos por si acaso, pero es
+mejor pegarla limpia.
+
 **El nombre de la variable de entorno: exacto.** El código busca esos textos
 literales, así que se copian tal cual, en mayúsculas y con guiones bajos:
 

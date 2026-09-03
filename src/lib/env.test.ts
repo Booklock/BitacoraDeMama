@@ -14,6 +14,16 @@ describe('normalizarUrl', () => {
     expect(normalizarUrl('  https://abc.supabase.co/ \n')).toBe('https://abc.supabase.co');
   });
 
+  it('quita el endpoint REST, que es el que se copia por error', () => {
+    expect(normalizarUrl('https://abc.supabase.co/rest/v1/')).toBe('https://abc.supabase.co');
+    expect(normalizarUrl('https://abc.supabase.co/rest/v1')).toBe('https://abc.supabase.co');
+  });
+
+  it('quita también los otros endpoints de la API', () => {
+    expect(normalizarUrl('https://abc.supabase.co/auth/v1')).toBe('https://abc.supabase.co');
+    expect(normalizarUrl('https://abc.supabase.co/storage/v1/')).toBe('https://abc.supabase.co');
+  });
+
   it('deja intacta una URL correcta', () => {
     expect(normalizarUrl('https://abc.supabase.co')).toBe('https://abc.supabase.co');
   });

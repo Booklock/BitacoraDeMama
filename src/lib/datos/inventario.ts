@@ -18,6 +18,7 @@ interface FilaProducto {
   notes: string | null;
   stage: Product['stage'];
   fx_rate_to_usd: number | null;
+  reserved_by_name: string | null;
 }
 
 const aProducto = (f: FilaProducto): Product => ({
@@ -36,6 +37,7 @@ const aProducto = (f: FilaProducto): Product => ({
   notes: f.notes ?? undefined,
   stage: f.stage,
   fxRateToUsd: f.fx_rate_to_usd,
+  reservedByName: f.reserved_by_name,
 });
 
 const aFila = (p: Partial<Product>): Record<string, unknown> => {

@@ -120,6 +120,11 @@ export default function InventarioPage() {
                 <td className="min-w-[10rem] px-3 py-2.5">
                   <span className="font-medium text-tinta">{p.name}</span>
                   {p.brand && <span className="block text-xs text-tinta-suave">{p.brand}</span>}
+                  {p.reservedByName && (
+                    <span className="block text-xs text-verde-oscuro">
+                      Regalo de {p.reservedByName}
+                    </span>
+                  )}
                 </td>
                 <td className="whitespace-nowrap px-3 py-2.5 text-tinta-suave">
                   {nombreQrh(p.qrhCode)}

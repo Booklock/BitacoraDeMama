@@ -16,6 +16,8 @@ export PATH="$PGBIN:$PATH"
 
 limpiar() {
   pg_ctl -D "$PGDATA" stop -m immediate >/dev/null 2>&1 || true
+  # Por si quedó uno huérfano de una ejecución anterior con este mismo PGDATA.
+  pkill -f "postgres.*$PGDATA" >/dev/null 2>&1 || true
 }
 trap limpiar EXIT
 
@@ -33,7 +35,7 @@ else
 fi
 
 $CORRER "PATH=$PGBIN:\$PATH initdb -D $PGDATA -A trust -U postgres" >/dev/null
-$CORRER "PATH=$PGBIN:\$PATH pg_ctl -D $PGDATA -l $PGDATA/log -o '-k $PGSOCK -p $PGPORT' -w start" >/dev/null
+$CORRER "PATH=$PGBIN:\$PATH pg_ctl -D $PGDATA -l $PGDATA/log -o \"-k $PGSOCK -p $PGPORT -c listen_addresses=''\" -w start" >/dev/null
 
 PSQL="psql -h $PGSOCK -p $PGPORT -U postgres -v ON_ERROR_STOP=1"
 
@@ -57,7 +59,10 @@ do \$\$ begin
 end \$\$;"
 
 echo "→ Pruebas de seguridad"
-$PSQL -d bitacora -f supabase/pruebas/01-seguridad.sql 2>&1 | grep -E "NOTICE|FALLO|ERROR|PASARON" | sed 's/^NOTICE:  //'
+for prueba in supabase/pruebas/0[1-9]-*.sql; do
+  echo "   · $(basename "$prueba")"
+  $PSQL -d bitacora -f "$prueba" 2>&1 | grep -E "NOTICE|FALLO|ERROR|PASARON" | sed 's/^NOTICE:  /     /'
+done
 
 echo ""
 echo "✓ Todo correcto"

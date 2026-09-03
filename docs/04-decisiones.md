@@ -127,3 +127,40 @@ falla se conserva la última tasa buena, nunca se cae a `1` como hace el Excel a
 moneda desconocida. La UI muestra la fecha de la última actualización y permite
 corregir a mano, conservando la moneda «Otra» del Excel. El detalle está en la sección
 «Monedas y tipos de cambio» de `02-modelo-de-datos.md`.
+
+
+## D8 · Dos formas de compartir, con acceso muy distinto
+
+**Decisión.** La bitácora se comparte de dos maneras que no se parecen en nada:
+
+| | **Pareja** | **Familia** |
+|---|---|---|
+| Qué ve | todo: inventario, precios, dashboard, configuración | sólo lo que falta por comprar |
+| Qué puede hacer | editarlo todo | apuntarse a regalar y marcar comprado |
+| Cómo entra | crea su cuenta con un código de 8 caracteres | abre un enlace, sin cuenta |
+| Duración | un solo uso, 30 días | reutilizable hasta que se revoque |
+
+**Por qué la familia no necesita cuenta.** Los abuelos no se van a registrar. Si
+regalar exige crear una cuenta, no regalan por la app y la función no existe. El
+enlace público es la única forma de que esto se use de verdad.
+
+**Qué obliga eso.** Como cualquiera con el enlace entra, el token es de 24
+caracteres (≈121 bits, no se adivina) y —más importante— **el enlace no da
+acceso a ninguna tabla**. Todo pasa por funciones que comprueban el token y
+devuelven sólo lo que la familia debe ver. El rol `anon` no puede leer
+`products` ni aunque tenga el enlace; eso está probado en
+`supabase/pruebas/02-lista-regalos.sql`.
+
+**Qué NO ve la familia**, deliberadamente: lo ya comprado, los totales, el
+presupuesto, quién paga qué, ni las notas de los padres. La lista de regalos no
+es una ventana a la economía de la casa.
+
+**Consecuencias.** Un regalo marcado como comprado desde el enlace completa el
+checklist de los padres, se atribuye al pagador «Regalo (Baby Shower)» y congela
+el tipo de cambio del día, igual que una compra propia. En el inventario aparece
+«Regalo de <nombre>».
+
+**Riesgo aceptado.** Cualquiera con el enlace puede liberar un regalo apartado
+por otra persona. Es un enlace familiar y el coste de equivocarse es bajo;
+resolverlo bien exigiría identificar a cada persona, que es justo lo que
+queríamos evitar. Generar un enlace nuevo invalida el anterior.

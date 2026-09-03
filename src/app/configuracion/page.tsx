@@ -13,6 +13,7 @@ import {
   agregarPagador, borrarPagador, cargarProyecto, crearCodigoInvitacion,
   guardarAjustes, renombrarPagador, type Proyecto,
 } from '@/lib/datos/proyecto';
+import { crearEnlaceRegalos } from '@/lib/datos/regalos';
 
 const NOMBRE_ROL: Record<string, string> = {
   mother: 'Mamá', father: 'Papá', gift: 'Regalos', shared: 'Gasto compartido', extra: 'Ayuda',
@@ -26,6 +27,7 @@ export default function ConfiguracionPage() {
   const [guardado, setGuardado] = useState('');
   const [nuevoAyudante, setNuevoAyudante] = useState('');
   const [codigo, setCodigo] = useState('');
+  const [enlaceRegalos, setEnlaceRegalos] = useState('');
 
   const recargar = useCallback(async () => {
     try {
@@ -289,12 +291,51 @@ export default function ConfiguracionPage() {
           </p>
         </Tarjeta>
 
-        {/* Invitación */}
-        {miRol === 'owner' && (
-          <Tarjeta titulo="Compartir con tu pareja">
-            <p className="-mt-2 text-sm text-tinta-suave">
-              Genera un código y compártelo. Quien lo use verá esta misma bitácora,
-              con el mismo inventario y el mismo dashboard.
+        {/* Compartir: dos niveles bien distintos */}
+        <Tarjeta titulo="Compartir tu bitácora">
+          <p className="-mt-2 text-sm text-tinta-suave">
+            Hay dos formas de compartir, y dan acceso muy distinto. Elige con cuidado.
+          </p>
+
+          {miRol === 'owner' && (
+            <div className="mt-4 rounded-xl2 bg-crema-calido p-4 ring-1 ring-crema-borde">
+              <h3 className="text-sm font-semibold">Tu pareja · acceso completo</h3>
+              <p className="mt-1 text-xs leading-relaxed text-tinta-suave">
+                Ve y edita <strong>todo</strong>: inventario, precios, dashboard y
+                configuración. Necesita crear su cuenta con el código. Sirve una sola
+                vez y vence en 30 días.
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setError('');
+                    try {
+                      setCodigo(await crearCodigoInvitacion(createClient(), id));
+                    } catch (e) {
+                      setError(e instanceof Error ? e.message : 'No se pudo generar el código.');
+                    }
+                  }}
+                  className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
+                >
+                  Generar código
+                </button>
+                {codigo && (
+                  <code className="rounded-lg bg-amarillo-suave px-3 py-2 font-mono text-base tracking-wider">
+                    {codigo}
+                  </code>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-4 rounded-xl2 bg-crema-calido p-4 ring-1 ring-crema-borde">
+            <h3 className="text-sm font-semibold">La familia · sólo la lista de regalos</h3>
+            <p className="mt-1 text-xs leading-relaxed text-tinta-suave">
+              Para abuelos, hermanos y tíos. Ven <strong>sólo lo que falta por comprar</strong>,
+              pueden apuntarse a regalar algo y marcarlo como comprado.{' '}
+              <strong>No ven</strong> lo que ya tienes, ni los totales, ni quién paga qué.
+              No necesitan cuenta: basta con abrir el enlace.
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button
@@ -302,28 +343,42 @@ export default function ConfiguracionPage() {
                 onClick={async () => {
                   setError('');
                   try {
-                    setCodigo(await crearCodigoInvitacion(createClient(), id));
+                    const token = await crearEnlaceRegalos(createClient(), id);
+                    setEnlaceRegalos(`${window.location.origin}/lista/${token}`);
                   } catch (e) {
-                    setError(e instanceof Error ? e.message : 'No se pudo generar el código.');
+                    setError(e instanceof Error ? e.message : 'No se pudo generar el enlace.');
                   }
                 }}
                 className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
               >
-                Generar código
+                {enlaceRegalos ? 'Generar uno nuevo' : 'Generar enlace'}
               </button>
-              {codigo && (
-                <code className="rounded-lg bg-amarillo-suave px-3 py-2 font-mono text-base tracking-wider">
-                  {codigo}
-                </code>
+              {enlaceRegalos && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    void navigator.clipboard?.writeText(enlaceRegalos);
+                    avisar('Enlace copiado.');
+                  }}
+                  className="rounded-lg px-3 py-2 text-sm text-tinta-suave underline underline-offset-2 hover:text-tinta"
+                >
+                  Copiar
+                </button>
               )}
             </div>
-            {codigo && (
-              <p className="mt-2 text-xs text-tinta-suave">
-                Sirve una sola vez y vence en 30 días.
-              </p>
+            {enlaceRegalos && (
+              <>
+                <p className="mt-3 break-all rounded-lg bg-white px-3 py-2 font-mono text-xs">
+                  {enlaceRegalos}
+                </p>
+                <p className="mt-2 text-xs text-tinta-suave">
+                  Se puede compartir con quien quieras y no caduca. Generar uno nuevo
+                  invalida el anterior, por si el enlace llega a quien no debía.
+                </p>
+              </>
             )}
-          </Tarjeta>
-        )}
+          </div>
+        </Tarjeta>
       </div>
     </Marco>
   );
