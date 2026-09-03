@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { CATALOGO } from '@/lib/catalogo';
 import { createClient } from '@/lib/supabase-browser';
 import { isSupabaseConfigured } from '@/lib/env';
+import { mensajeDeError } from '@/lib/mensajes';
 import { cargarProyecto } from '@/lib/datos/proyecto';
 import {
   actualizarProducto as actualizarEnNube, borrarProducto as borrarEnNube,
@@ -130,7 +131,7 @@ export function ProveedorDatos({ children }: { children: React.ReactNode }) {
           const creado = await crearEnNube(createClient(), projectId, p, tasas);
           setProductos((prev) => [...prev, creado]);
         } catch (e) {
-          setError(e instanceof Error ? e.message : 'No se pudo guardar el producto.');
+          setError(`No se pudo guardar el producto. ${mensajeDeError(e)}`);
         }
         return;
       }
@@ -145,7 +146,7 @@ export function ProveedorDatos({ children }: { children: React.ReactNode }) {
           const nuevo = await actualizarEnNube(createClient(), id, cambios, anterior, tasas);
           setProductos((prev) => prev.map((p) => (p.id === id ? nuevo : p)));
         } catch (e) {
-          setError(e instanceof Error ? e.message : 'No se pudo actualizar.');
+          setError(`No se pudo actualizar. ${mensajeDeError(e)}`);
         }
         return;
       }
@@ -161,7 +162,7 @@ export function ProveedorDatos({ children }: { children: React.ReactNode }) {
           await borrarEnNube(createClient(), id);
         } catch (e) {
           setProductos(copia); // Se deshace: la base manda.
-          setError(e instanceof Error ? e.message : 'No se pudo borrar.');
+          setError(`No se pudo borrar. ${mensajeDeError(e)}`);
         }
       }
     },
@@ -174,7 +175,7 @@ export function ProveedorDatos({ children }: { children: React.ReactNode }) {
         try {
           await guardarEstado(createClient(), projectId, itemCode, nuevo);
         } catch (e) {
-          setError(e instanceof Error ? e.message : 'No se pudo guardar el checklist.');
+          setError(`No se pudo guardar el checklist. ${mensajeDeError(e)}`);
         }
       }
     },

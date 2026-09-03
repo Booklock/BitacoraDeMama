@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Logo } from '@/components/Logo';
 import { Aviso, CampoTexto } from '@/components/CampoTexto';
+import { mensajeDeError } from '@/lib/mensajes';
 import { Tarjeta } from '@/components/ui';
 import { MONEDAS } from '@/lib/monedas';
 import { missionId } from '@/lib/engine/dashboard';
@@ -41,7 +42,7 @@ export default function ConfiguracionPage() {
       setProyecto(p);
       setEstado('listo');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo cargar.');
+      setError(`No se pudo cargar tu bitácora. ${mensajeDeError(e)}`);
       setEstado('error');
     }
   }, []);
@@ -60,7 +61,7 @@ export default function ConfiguracionPage() {
       await recargar();
       avisar(mensaje);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo guardar.');
+      setError(`No se pudo guardar. ${mensajeDeError(e)}`);
     }
   };
 
@@ -313,7 +314,7 @@ export default function ConfiguracionPage() {
                     try {
                       setCodigo(await crearCodigoInvitacion(createClient(), id));
                     } catch (e) {
-                      setError(e instanceof Error ? e.message : 'No se pudo generar el código.');
+                      setError(`No se pudo generar el código. ${mensajeDeError(e)}`);
                     }
                   }}
                   className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
@@ -346,7 +347,7 @@ export default function ConfiguracionPage() {
                     const token = await crearEnlaceRegalos(createClient(), id);
                     setEnlaceRegalos(`${window.location.origin}/lista/${token}`);
                   } catch (e) {
-                    setError(e instanceof Error ? e.message : 'No se pudo generar el enlace.');
+                    setError(`No se pudo generar el enlace. ${mensajeDeError(e)}`);
                   }
                 }}
                 className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
