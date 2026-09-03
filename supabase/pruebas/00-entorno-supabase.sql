@@ -16,6 +16,12 @@ do $$ begin
   if not exists (select 1 from pg_roles where rolname = 'service_role') then create role service_role nologin bypassrls; end if;
 end $$;
 
+-- En Supabase real, anon y authenticated pueden usar el esquema auth y llamar
+-- a auth.uid(). Sin este grant, el banco de pruebas sería más restrictivo que
+-- la realidad y daría fallos que en producción no existen.
+grant usage on schema auth to anon, authenticated;
+grant select on auth.users to anon, authenticated;
+
 grant usage on schema public to anon, authenticated;
 alter default privileges in schema public grant all on tables to anon, authenticated;
 alter default privileges in schema public grant all on sequences to anon, authenticated;
