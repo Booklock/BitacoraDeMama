@@ -10,9 +10,9 @@ export const TASAS_DEMO: FxRates = {
 
 export const AJUSTES_DEMO: Settings = {
   currencyCode: 'USD',
-  babyName: 'Valentina',
-  fatherLastname: 'Rojas',
-  motherLastname: 'Montalto',
+  babyName: 'Sebastián',
+  fatherLastname: 'Montalto',
+  motherLastname: 'Araya',
 };
 
 export const PAGADORES_DEMO: Payer[] = [

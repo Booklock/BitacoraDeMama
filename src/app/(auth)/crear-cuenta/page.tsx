@@ -34,7 +34,7 @@ export default function CrearCuentaPage() {
     setCargando(true);
     try {
       const supabase = createClient();
-      const { error: err } = await supabase.auth.signUp({
+      const { data, error: err } = await supabase.auth.signUp({
         email: correo.trim(),
         password: clave,
       });
@@ -46,6 +46,20 @@ export default function CrearCuentaPage() {
         );
         return;
       }
+
+      // Sin sesión, la cuenta existe pero no se puede hacer nada con ella.
+      // Pasa cuando Supabase tiene activada la confirmación por correo, que
+      // esta app da por desactivada (decisión D5).
+      if (!data.session) {
+        setError(
+          'La cuenta se creó, pero Supabase está pidiendo confirmar el correo. ' +
+            'Revisa tu bandeja de entrada y, cuando confirmes, entra con tu ' +
+            'contraseña. (A quien administre el sitio: desactivar «Confirm email» ' +
+            'en Authentication → Sign In / Providers → Email.)',
+        );
+        return;
+      }
+
       router.push('/primeros-pasos');
       router.refresh();
     } catch (e) {

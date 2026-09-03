@@ -12,7 +12,9 @@ import {
 import type { ChecklistState, FxRates, Payer, Product, Settings } from '@/lib/engine/types';
 import { AJUSTES_DEMO, PAGADORES_DEMO, PRODUCTOS_DEMO, TASAS_DEMO } from '@/lib/demo/datos';
 
-const CLAVE_DEMO = 'bitacora-demo-v1';
+// Se sube la versión al cambiar los datos de ejemplo: si no, quien ya abrió
+// la demostración seguiría viendo los antiguos guardados en su navegador.
+const CLAVE_DEMO = 'bitacora-demo-v2';
 
 /** `demo` = datos de ejemplo en este navegador. `nube` = la bitácora real,
  *  compartida con quien tenga acceso al proyecto. */

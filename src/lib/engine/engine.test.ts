@@ -166,6 +166,10 @@ describe('Mission ID (docs/01 §6.5)', () => {
     expect(missionId('Ángela')).toBe('ANGE001-QRH');
   });
 
+  it('resuelve el nombre de la demostración', () => {
+    expect(missionId('Sebastián')).toBe('SEBA001-QRH');
+  });
+
   it('aguanta un nombre más corto que cuatro letras', () => {
     expect(missionId('Ana')).toBe('ANA001-QRH');
   });

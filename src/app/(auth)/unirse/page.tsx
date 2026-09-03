@@ -40,6 +40,13 @@ export default function UnirsePage() {
           setError(mensajeDeError(alta.error));
           return;
         }
+        if (!alta.data.session) {
+          setError(
+            'La cuenta se creó, pero Supabase está pidiendo confirmar el correo. ' +
+              'Confírmalo y vuelve a intentarlo con el mismo código.',
+          );
+          return;
+        }
       }
 
       const { error: err } = await supabase.rpc('join_project_with_code', {
