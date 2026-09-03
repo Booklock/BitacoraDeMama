@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "seed:sql": "node scripts/generate-seed-sql.mjs"
+    "seed:sql": "node scripts/generate-seed-sql.mjs",
+    "sql:instalador": "node scripts/build-instalador.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

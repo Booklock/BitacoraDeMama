@@ -94,25 +94,22 @@ para nada: las migraciones se ejecutan desde el panel de Supabase.
 
 ## Paso 4 · Crear las tablas y sembrar el catálogo
 
-En el menú lateral: **SQL Editor → New query**. Vas a ejecutar **cinco archivos, en
-este orden**. Para cada uno: abre el archivo del repositorio, copia todo su contenido,
-pégalo en el editor y pulsa **Run**.
+En el menú lateral: **SQL Editor → New query**.
 
-| Orden | Archivo | Qué hace |
-|-------|---------|----------|
-| 1 | `supabase/migrations/20260831000100_schema.sql` | Crea las tablas y los tipos |
-| 2 | `supabase/migrations/20260831000200_rls.sql` | Activa la seguridad por filas |
-| 3 | `supabase/migrations/20260831000300_functions.sql` | Alta de proyecto, invitaciones, diagnóstico |
-| 4 | `supabase/migrations/20260831000400_seed_catalog.sql` | Carga 13 QRH, 188 ítems, 216 combos y 7 monedas |
-| 5 | `supabase/migrations/20260831000500_alta_flexible.sql` | Alta de proyecto para el asistente de primeros pasos |
+Abre [`supabase/instalacion-completa.sql`](../supabase/instalacion-completa.sql),
+copia **todo** su contenido, pégalo y pulsa **Run**. Un solo archivo, una sola vez.
 
-El orden importa: el archivo 2 usa tablas que crea el 1, y así sucesivamente. Si algún
-`Run` da error, **no sigas al siguiente** — resuelve ese primero.
+Contiene las migraciones en el orden correcto y va dentro de una transacción: si
+algo falla, no queda nada a medias. Se genera solo con `npm run sql:instalador`,
+así que nunca se desincroniza de `supabase/migrations/`.
 
-**Comprobación.** En una consulta nueva, ejecuta:
+> Si prefieres ejecutarlas una a una, están en `supabase/migrations/` numeradas.
+> El orden importa: cada una usa lo que crea la anterior.
+
+**Comprobación.** En una consulta nueva:
 
 ```sql
-select count(*) as items from checklist_items;   -- debe dar 188
+select count(*) as items from checklist_items;    -- debe dar 188
 select count(*) as combos from item_satisfied_by; -- debe dar 216
 ```
 
@@ -263,3 +260,25 @@ pero no deshace la publicación. Hay que rotarla.
 **Cómo se evita ahora.** La app comprueba el formato de la llave al arrancar y
 se niega a funcionar si detecta una secreta, con un mensaje explicando qué
 hacer, en vez de desplegarla en silencio.
+
+
+## Probar el esquema sin tocar producción
+
+`scripts/probar-sql.sh` levanta un Postgres desechable, simula el entorno de
+Supabase (`auth.users`, `auth.uid()`, los roles), instala el esquema entero y
+ejecuta las pruebas de `supabase/pruebas/`.
+
+```bash
+./scripts/probar-sql.sh     # requiere postgresql-16 instalado
+```
+
+Comprueba que el catálogo se siembra completo y, sobre todo, que **una familia
+no puede ver ni tocar los datos de otra**: que una extraña no lee productos,
+proyectos, pagadores ni invitaciones ajenas; que no puede escribir en ellos ni
+colarse como miembro; que el catálogo del sistema es de sólo lectura; y que un
+código de invitación sirve una vez y una sola.
+
+Esa última comprobación existe porque esta prueba encontró un fallo real: si
+quien redimía un código ya era miembro, el código quedaba sin gastar y
+cualquiera con él podía entrar. Está corregido en la migración
+`20260831000600_invitacion_un_solo_uso.sql`.
