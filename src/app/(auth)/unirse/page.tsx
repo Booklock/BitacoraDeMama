@@ -57,7 +57,7 @@ export default function UnirsePage() {
         return;
       }
 
-      router.push('/configuracion');
+      router.push('/dashboard');
       router.refresh();
     } catch (e) {
       setError(mensajeDeError(e));

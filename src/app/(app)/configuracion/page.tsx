@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
-import { Logo } from '@/components/Logo';
 import { Aviso, CampoTexto } from '@/components/CampoTexto';
 import { mensajeDeError } from '@/lib/mensajes';
 import { Tarjeta } from '@/components/ui';
@@ -66,12 +65,12 @@ export default function ConfiguracionPage() {
   };
 
   if (estado === 'cargando') {
-    return <Marco><p className="text-sm text-tinta-suave">Cargando…</p></Marco>;
+    return <p className="py-8 text-sm text-tinta-suave">Cargando…</p>;
   }
 
   if (estado === 'sin-sesion') {
     return (
-      <Marco>
+      <div className="max-w-lg py-6">
         <h1 className="text-xl font-semibold">Necesitas una cuenta</h1>
         <p className="mt-2 text-sm text-tinta-suave">
           La configuración se guarda en tu bitácora, así que hace falta entrar.
@@ -85,13 +84,13 @@ export default function ConfiguracionPage() {
             Entrar
           </Link>
         </div>
-      </Marco>
+      </div>
     );
   }
 
   if (estado === 'sin-proyecto') {
     return (
-      <Marco>
+      <div className="max-w-lg py-6">
         <h1 className="text-xl font-semibold">Aún no tienes una bitácora</h1>
         <p className="mt-2 text-sm text-tinta-suave">Son tres pasos y todos son opcionales.</p>
         <Link
@@ -100,12 +99,12 @@ export default function ConfiguracionPage() {
         >
           Empezar
         </Link>
-      </Marco>
+      </div>
     );
   }
 
   if (estado === 'error' || !proyecto) {
-    return <Marco><Aviso>{error || 'No se pudo cargar la configuración.'}</Aviso></Marco>;
+    return <div className="py-6"><Aviso>{error || 'No se pudo cargar la configuración.'}</Aviso></div>;
   }
 
   const { ajustes, pagadores, id, miRol } = proyecto;
@@ -113,7 +112,7 @@ export default function ConfiguracionPage() {
   const principales = pagadores.filter((p) => p.role !== 'extra');
 
   return (
-    <Marco ancho>
+    <div className="max-w-3xl py-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold">Configuración</h1>
@@ -381,25 +380,6 @@ export default function ConfiguracionPage() {
           </div>
         </Tarjeta>
       </div>
-    </Marco>
-  );
-}
-
-function Marco({ children, ancho }: { children: React.ReactNode; ancho?: boolean }) {
-  return (
-    <div className="min-h-screen">
-      <header className="border-b border-crema-borde bg-white/60">
-        <div className="mx-auto flex max-w-3xl items-center gap-4 px-5 py-3">
-          <Link href="/" className="flex items-center gap-2.5 text-verde">
-            <Logo className="h-7 w-7" />
-            <span className="text-sm font-semibold text-tinta">Bitácora de Mamá</span>
-          </Link>
-          <Link href="/dashboard" className="ml-auto text-sm text-tinta-suave hover:text-tinta">
-            Ver la demostración
-          </Link>
-        </div>
-      </header>
-      <main className={`mx-auto px-5 py-8 ${ancho ? 'max-w-3xl' : 'max-w-lg'}`}>{children}</main>
     </div>
   );
 }

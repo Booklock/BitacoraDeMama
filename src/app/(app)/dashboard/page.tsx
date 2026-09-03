@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import Link from 'next/link';
 import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BarraProgreso, Cifra, ListaBarras, Tarjeta } from '@/components/ui';
 import { formatearDinero } from '@/lib/engine/money';
@@ -31,30 +32,40 @@ export default function DashboardPage() {
     [productos, tasas, moneda],
   );
 
+  if (productos.length === 0) {
+    return (
+      <div className="space-y-5">
+        <FlightPlanCard plan={plan} />
+        <Tarjeta>
+          <h2 className="text-lg font-semibold">Tu bitácora está lista</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-tinta-suave">
+            Todavía no hay nada registrado, así que aquí no hay números que mostrar.
+            En cuanto agregues tu primer producto, los checklists empiezan a marcarse
+            solos y este panel cobra vida.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href="/inventario"
+              className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
+            >
+              Agregar mi primer producto
+            </Link>
+            <Link
+              href="/checklists"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-verde-oscuro ring-1 ring-crema-borde hover:bg-white"
+            >
+              Ver los 13 checklists
+            </Link>
+          </div>
+        </Tarjeta>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-5">
       {/* Flight Plan: el encabezado de aviación del Excel */}
-      <section className="rounded-xl2 bg-verde-oscuro px-6 py-5 text-white">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/70">
-          Mission {plan.mission}
-        </p>
-        <h1 className="mt-1 text-2xl font-semibold">Flight Plan</h1>
-        <dl className="mt-4 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            ['Aircraft', plan.aircraft],
-            ['Captain', plan.captain],
-            ['First officer', plan.firstOfficer],
-            ['Passenger', plan.passenger],
-            ['Mission', `Safe delivery ${plan.passenger}`],
-            ['Flight duration', plan.duration],
-          ].map(([k, v]) => (
-            <div key={k}>
-              <dt className="text-xs uppercase tracking-wide text-white/60">{k}</dt>
-              <dd className="mt-0.5 font-medium">{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+      <FlightPlanCard plan={plan} />
 
       {/* Cifras principales */}
       <div className="grid gap-4 sm:grid-cols-3">
@@ -141,5 +152,31 @@ export default function DashboardPage() {
         </Tarjeta>
       </div>
     </div>
+  );
+}
+
+function FlightPlanCard({ plan }: { plan: ReturnType<typeof flightPlan> }) {
+  return (
+      <section className="rounded-xl2 bg-verde-oscuro px-6 py-5 text-white">
+      <p className="text-xs uppercase tracking-[0.2em] text-white/70">
+        Mission {plan.mission}
+      </p>
+      <h1 className="mt-1 text-2xl font-semibold">Flight Plan</h1>
+      <dl className="mt-4 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          ['Aircraft', plan.aircraft],
+          ['Captain', plan.captain],
+          ['First officer', plan.firstOfficer],
+          ['Passenger', plan.passenger],
+          ['Mission', `Safe delivery ${plan.passenger}`],
+          ['Flight duration', plan.duration],
+        ].map(([k, v]) => (
+          <div key={k}>
+            <dt className="text-xs uppercase tracking-wide text-white/60">{k}</dt>
+            <dd className="mt-0.5 font-medium">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }

@@ -32,7 +32,7 @@ export default function EntrarPage() {
         );
         return;
       }
-      router.push('/configuracion');
+      router.push('/dashboard');
       router.refresh();
     } catch (e) {
       setError(mensajeDeError(e));
