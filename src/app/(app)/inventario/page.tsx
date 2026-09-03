@@ -9,8 +9,10 @@ import { formatearDinero, precioConvertido, simbolo } from '@/lib/engine/money';
 import { ETIQUETAS_ETAPA } from '@/lib/engine/dashboard';
 import type { Status } from '@/lib/engine/types';
 
-const FILTROS_ESTADO: { valor: Status | 'todos'; texto: string }[] = [
+const FILTROS_ESTADO: { valor: Status | 'todos' | 'decididos'; texto: string }[] = [
   { valor: 'todos', texto: 'Todos' },
+  { valor: 'decididos', texto: 'Lo que decidimos' },
+  { valor: 'suggested', texto: 'Sugeridos' },
   { valor: 'purchased', texto: 'Comprado' },
   { valor: 'pending', texto: 'Pendiente' },
   { valor: 'wishlist', texto: 'Deseo' },
@@ -19,7 +21,7 @@ const FILTROS_ESTADO: { valor: Status | 'todos'; texto: string }[] = [
 
 export default function InventarioPage() {
   const { productos, ajustes, pagadores, tasas, catalogo, borrarProducto } = useApp();
-  const [filtroEstado, setFiltroEstado] = useState<Status | 'todos'>('todos');
+  const [filtroEstado, setFiltroEstado] = useState<Status | 'todos' | 'decididos'>('todos');
   const [filtroQrh, setFiltroQrh] = useState<string>('todos');
   const [busqueda, setBusqueda] = useState('');
   const [abierto, setAbierto] = useState(false);
@@ -28,10 +30,18 @@ export default function InventarioPage() {
   const nombrePagador = (id: string | null) =>
     pagadores.find((p) => p.id === id)?.name ?? '—';
 
+  const sugeridos = useMemo(
+    () => productos.filter((p) => p.status === 'suggested').length,
+    [productos],
+  );
+
   const visibles = useMemo(
     () =>
       productos.filter((p) => {
-        if (filtroEstado !== 'todos' && p.status !== filtroEstado) return false;
+        if (filtroEstado === 'decididos' && p.status === 'suggested') return false;
+        if (filtroEstado !== 'todos' && filtroEstado !== 'decididos' && p.status !== filtroEstado) {
+          return false;
+        }
         if (filtroQrh !== 'todos' && p.qrhCode !== filtroQrh) return false;
         if (busqueda && !p.name.toLowerCase().includes(busqueda.toLowerCase())) return false;
         return true;
@@ -99,6 +109,15 @@ export default function InventarioPage() {
 
       <p className="text-sm text-tinta-suave">
         {visibles.length} de {productos.length} productos
+        {sugeridos > 0 && filtroEstado === 'todos' && (
+          <>
+            {' · '}
+            <span>
+              {sugeridos} son sugerencias de la app. Marca el estado de lo que ya
+              tengas o quieras, y borra lo que no aplique.
+            </span>
+          </>
+        )}
       </p>
 
       {/* Tabla en pantalla ancha */}

@@ -1,5 +1,5 @@
 import type { FxRates, ModoGasto, Product } from './types';
-import { ESTADOS_QUE_COMPLETAN } from './types';
+import { ESTADOS_DECIDIDOS, ESTADOS_QUE_COMPLETAN } from './types';
 
 /** Tasa a usar para un producto. Si ya se compró, la que quedó congelada;
  *  si no, la de hoy (decisión D7). Moneda desconocida → null, nunca 1:
@@ -46,6 +46,8 @@ export function precioConvertido(
 /** ¿Este producto suma al gasto, según el modo?
  *  El Excel suma todo, incluida la lista de deseos (docs/01 §9.1). */
 export function cuentaComoGasto(product: Product, modo: ModoGasto): boolean {
+  // Una sugerencia de la app nunca es gasto: la familia no ha decidido nada.
+  if (!ESTADOS_DECIDIDOS.includes(product.status)) return false;
   if (modo === 'excel') return true;
   return ESTADOS_QUE_COMPLETAN.includes(product.status);
 }

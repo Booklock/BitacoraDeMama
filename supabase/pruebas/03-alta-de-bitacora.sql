@@ -77,6 +77,60 @@ begin
   raise notice 'OK · una moneda desconocida cae a USD en vez de fallar';
 end $$;
 
+
+-- ---------------------------------------------------------------------------
+-- La lista recomendada precargada
+-- ---------------------------------------------------------------------------
+set request.jwt.claims = '{"sub":"99999999-9999-9999-9999-999999999999"}';
+do $$
+declare
+  v_pid uuid := (select id from mis_proyectos order by created_at limit 1);
+  v_n   int;
+begin
+  v_n := precargar_sugerencias(v_pid);
+  if v_n < 100 then
+    raise exception 'FALLO: sólo se precargaron % productos', v_n;
+  end if;
+
+  -- Repetirlo no debe duplicar nada.
+  if precargar_sugerencias(v_pid) <> 0 then
+    raise exception 'FALLO: la precarga duplicó productos al repetirse';
+  end if;
+
+  -- Nada de "Llegada a casa": son comprobaciones, no compras.
+  if exists (select 1 from products where project_id = v_pid and qrh_code = 'QRH-012') then
+    raise exception 'FALLO: precargó comprobaciones como si fueran productos';
+  end if;
+
+  -- Ni combos ni placeholders.
+  if exists (
+    select 1 from products p join checklist_items i on i.code = p.item_code
+    where p.project_id = v_pid and (i.is_bundle or i.is_placeholder)
+  ) then
+    raise exception 'FALLO: precargó combos o placeholders';
+  end if;
+
+  -- Todo entra como sugerencia, no como pendiente.
+  if exists (select 1 from products where project_id = v_pid and status <> 'suggested') then
+    raise exception 'FALLO: la precarga no dejó todo como sugerido';
+  end if;
+
+  raise notice 'OK · precarga: % productos, sin combos, sin comprobaciones, todo sugerido', v_n;
+end $$;
+
+-- Una sugerencia no debe aparecer en la lista de regalos de la familia.
+do $$
+declare
+  v_pid   uuid := (select id from mis_proyectos order by created_at limit 1);
+  v_token text;
+begin
+  v_token := crear_enlace_regalos(v_pid);
+  if exists (select 1 from ver_lista_regalos(v_token)) then
+    raise exception 'FALLO: las sugerencias se cuelan en la lista de regalos';
+  end if;
+  raise notice 'OK · las sugerencias no llenan la lista de los abuelos';
+end $$;
+
 reset role;
 \echo ''
 \echo 'PRUEBAS DEL ALTA: TODAS PASARON'

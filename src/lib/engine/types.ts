@@ -1,6 +1,10 @@
 /** Tipos del dominio. Espejo del modelo de datos (docs/02-modelo-de-datos.md). */
 
-export type Status = 'purchased' | 'pending' | 'wishlist' | 'savings';
+export type Status = 'purchased' | 'pending' | 'wishlist' | 'savings' | 'suggested';
+
+/** «Sugerido» lo puso la app al crear la bitácora, no la familia. No es una
+ *  decisión: no cuenta como gasto ni sale en la lista de regalos. */
+export const ESTADOS_DECIDIDOS: readonly Status[] = ['purchased', 'pending', 'wishlist', 'savings'];
 
 export type Stage = 'pregnancy' | 'm0_3' | 'm3_6' | 'm6_9' | 'm9_12' | 'all';
 

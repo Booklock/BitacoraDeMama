@@ -3,7 +3,7 @@ import { progresoDeQrh, progresoGlobal } from './checklist';
 import type {
   ChecklistState, FxRates, ModoGasto, Payer, Product, QrhCategory, Settings, Stage,
 } from './types';
-import { ESTADOS_QUE_COMPLETAN } from './types';
+import { ESTADOS_DECIDIDOS, ESTADOS_QUE_COMPLETAN } from './types';
 
 export interface FilaQrh {
   code: string;
@@ -32,7 +32,9 @@ export function resumenPorQrh(
     // El desglose no depende del modo: separa lo comprometido de lo que
     // todavía es una intención, que es la pregunta que se hace quien mira.
     const fijos = suyos.filter((p) => ESTADOS_QUE_COMPLETAN.includes(p.status));
-    const enLista = suyos.filter((p) => !ESTADOS_QUE_COMPLETAN.includes(p.status));
+    const enLista = suyos.filter(
+      (p) => ESTADOS_DECIDIDOS.includes(p.status) && !ESTADOS_QUE_COMPLETAN.includes(p.status),
+    );
     return {
       code: qrh.code,
       nombre: qrh.nameEs,
@@ -58,7 +60,9 @@ export function gastoPorPagador(
       rates, currencyCode, 'corrected',
     );
     const enLista = sumar(
-      suyos.filter((p) => !ESTADOS_QUE_COMPLETAN.includes(p.status)),
+      suyos.filter(
+        (p) => ESTADOS_DECIDIDOS.includes(p.status) && !ESTADOS_QUE_COMPLETAN.includes(p.status),
+      ),
       rates, currencyCode, 'excel',
     );
     return { nombre: payer.name, total: sumar(suyos, rates, currencyCode, modo), fijo, enLista };
@@ -86,7 +90,9 @@ export function progresoPorEtapa(
   products: Product[],
 ): { etapa: Stage; nombre: string; ratio: number; total: number }[] {
   return (Object.keys(ETIQUETAS_ETAPA) as Stage[]).map((etapa) => {
-    const deLaEtapa = products.filter((p) => p.stage === etapa);
+    const deLaEtapa = products.filter(
+      (p) => p.stage === etapa && ESTADOS_DECIDIDOS.includes(p.status),
+    );
     const compradas = deLaEtapa.filter((p) => ESTADOS_QUE_COMPLETAN.includes(p.status));
     return {
       etapa,

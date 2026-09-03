@@ -110,7 +110,29 @@ export async function crearProyecto(
   }
 
   await guardarAjustes(supabase, projectId as string, datos.ajustes);
+
+  // La lista recomendada es la base del producto: la bitácora no nace vacía.
+  // Si esto fallara, el proyecto ya es usable, así que no se tumba el alta.
+  const { error: errPrecarga } = await supabase.rpc('precargar_sugerencias', {
+    p_project_id: projectId,
+  });
+  if (errPrecarga) {
+    console.warn('No se pudo precargar la lista recomendada:', errPrecarga.message);
+  }
+
   return projectId as string;
+}
+
+/** Vuelve a precargar lo que falte del catálogo. Es idempotente: no duplica
+ *  lo que ya está en el inventario. */
+export async function precargarSugerencias(
+  supabase: SupabaseClient, projectId: string,
+): Promise<number> {
+  const { data, error } = await supabase.rpc('precargar_sugerencias', {
+    p_project_id: projectId,
+  });
+  if (error) throw error;
+  return (data as number) ?? 0;
 }
 
 export async function guardarAjustes(

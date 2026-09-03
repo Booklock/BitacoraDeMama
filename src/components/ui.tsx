@@ -7,6 +7,8 @@ export const ESTILO_ESTADO: Record<Status, { etiqueta: string; punto: string; fo
   pending:   { etiqueta: 'Pendiente', punto: 'bg-estado-pendiente', fondo: 'bg-amarillo-medio/50' },
   wishlist:  { etiqueta: 'Deseo',     punto: 'bg-estado-deseo',     fondo: 'bg-azul-medio/40' },
   savings:   { etiqueta: 'Apartado',  punto: 'bg-estado-apartado',  fondo: 'bg-azul-fuerte/30' },
+  // Sin color de marca a propósito: es lo que la app propuso, no una decisión.
+  suggested: { etiqueta: 'Sugerido',  punto: 'bg-tinta-suave',       fondo: 'bg-crema-arena' },
 };
 
 /** El color nunca va solo: siempre acompaña a la etiqueta de texto. */

@@ -193,3 +193,37 @@ describe('desglose de gasto fijo y en lista', () => {
     expect(fila.gastoEnLista).toBe(540);
   });
 });
+
+describe('estado sugerido (la lista recomendada)', () => {
+  it('no cuenta como gasto en ninguno de los dos modos', async () => {
+    const { sumar } = await import('./money');
+    const sugerido = producto({ price: 500, status: 'suggested' });
+    expect(sumar([sugerido], TASAS, 'USD', 'excel')).toBe(0);
+    expect(sumar([sugerido], TASAS, 'USD', 'corrected')).toBe(0);
+  });
+
+  it('no completa un ítem del checklist', () => {
+    expect(estaCompleto(item(), qrh(), {}, [producto({ status: 'suggested' })])).toBe(false);
+  });
+
+  it('no se cuela en el desglose de "en lista"', async () => {
+    const { resumenPorQrh } = await import('./dashboard');
+    const categoria = qrh({ items: [item()] });
+    const productos = [
+      producto({ id: '1', price: 100, status: 'wishlist' }),
+      producto({ id: '2', price: 900, status: 'suggested' }),
+    ];
+    const [fila] = resumenPorQrh([categoria], productos, {}, TASAS, 'USD', 'corrected');
+    expect(fila.gastoEnLista).toBe(100);
+    expect(fila.gastoFijo).toBe(0);
+  });
+
+  it('no distorsiona el avance por etapa', async () => {
+    const { progresoPorEtapa } = await import('./dashboard');
+    const r = progresoPorEtapa([
+      producto({ id: '1', stage: 'pregnancy', status: 'purchased' }),
+      producto({ id: '2', stage: 'pregnancy', status: 'suggested' }),
+    ]);
+    expect(r.find((x) => x.etapa === 'pregnancy')?.ratio).toBe(1);
+  });
+});

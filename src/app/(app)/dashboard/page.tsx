@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BarraProgreso, Cifra, ListaBarras, Tarjeta } from '@/components/ui';
 import { formatearDinero } from '@/lib/engine/money';
+import { ESTADOS_DECIDIDOS } from '@/lib/engine/types';
 import {
   flightPlan, gastoPorPagador, progresoPorEtapa, resumenGeneral, resumenPorQrh, totalApartado,
 } from '@/lib/engine/dashboard';
@@ -32,23 +33,36 @@ export default function DashboardPage() {
     [productos, tasas, moneda],
   );
 
-  if (productos.length === 0) {
+  const decididos = productos.filter((p) => ESTADOS_DECIDIDOS.includes(p.status));
+
+  if (decididos.length === 0) {
     return (
       <div className="space-y-5">
         <FlightPlanCard plan={plan} />
         <Tarjeta>
           <h2 className="text-lg font-semibold">Tu bitácora está lista</h2>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-tinta-suave">
-            Todavía no hay nada registrado, así que aquí no hay números que mostrar.
-            En cuanto agregues tu primer producto, los checklists empiezan a marcarse
-            solos y este panel cobra vida.
+            {productos.length > 0 ? (
+              <>
+                Tu inventario ya trae <strong className="text-tinta">{productos.length} sugerencias</strong>{' '}
+                de lo que suele hacer falta. Todavía no hay números aquí porque son
+                propuestas, no decisiones: marca lo que ya compraste o lo que quieres,
+                y este panel cobra vida.
+              </>
+            ) : (
+              <>
+                Todavía no hay nada registrado, así que aquí no hay números que mostrar.
+                En cuanto agregues tu primer producto, los checklists empiezan a marcarse
+                solos y este panel cobra vida.
+              </>
+            )}
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/inventario"
               className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
             >
-              Agregar mi primer producto
+              {productos.length > 0 ? 'Ver la lista recomendada' : 'Agregar mi primer producto'}
             </Link>
             <Link
               href="/checklists"
