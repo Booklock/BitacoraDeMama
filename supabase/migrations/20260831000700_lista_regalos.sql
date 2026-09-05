@@ -12,9 +12,12 @@
 -- acceso directo a las tablas: todo pasa por funciones que sólo devuelven lo
 -- que la familia debe ver.
 
-create type share_kind as enum ('registry');
+do $$ begin
+  create type share_kind as enum ('registry');
+exception when duplicate_object then null;
+end $$;
 
-create table share_links (
+create table if not exists share_links (
   token      text primary key,
   project_id uuid not null references projects(id) on delete cascade,
   kind       share_kind not null default 'registry',
@@ -22,19 +25,20 @@ create table share_links (
   created_at timestamptz not null default now(),
   revoked_at timestamptz
 );
-create index on share_links (project_id);
+create index if not exists idx_share_links_project_id on share_links (project_id);
 
 alter table share_links enable row level security;
 
 -- Sólo los miembros ven y gestionan los enlaces de su propio proyecto.
 -- Quien use el enlace no toca esta tabla: entra por las funciones de abajo.
+drop policy if exists "miembros gestionan sus enlaces" on share_links;
 create policy "miembros gestionan sus enlaces" on share_links
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
 -- Quién se apuntó a comprar cada cosa.
-alter table products add column reserved_by_name text;
-alter table products add column reserved_at      timestamptz;
+alter table products add column if not exists reserved_by_name text;
+alter table products add column if not exists reserved_at      timestamptz;
 
 -- ---------------------------------------------------------------------------
 -- Crear y revocar el enlace

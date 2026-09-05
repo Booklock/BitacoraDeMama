@@ -48,6 +48,12 @@ $PSQL -d bitacora -q -f supabase/pruebas/00-entorno-supabase.sql
 echo "→ Instalando el esquema completo"
 $PSQL -d bitacora -q -f supabase/instalacion-completa.sql >/dev/null
 
+# El instalador se ejecuta DOS veces: quien añade una migración vuelve a
+# pegarlo entero sobre una base que ya tiene las anteriores, y antes eso
+# reventaba en el primer "create type ... already exists".
+echo "→ Reinstalando encima (debe ser idempotente)"
+$PSQL -d bitacora -q -f supabase/instalacion-completa.sql >/dev/null
+
 echo "→ Comprobando la semilla del catálogo"
 $PSQL -d bitacora -q -c "
 do \$\$ begin

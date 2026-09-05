@@ -40,12 +40,16 @@ alter table checklist_items   enable row level security;
 alter table item_satisfied_by enable row level security;
 alter table fx_rates          enable row level security;
 
+drop policy if exists "catálogo legible" on qrh_categories;
 create policy "catálogo legible" on qrh_categories
   for select to authenticated using (true);
+drop policy if exists "catálogo legible" on checklist_items;
 create policy "catálogo legible" on checklist_items
   for select to authenticated using (true);
+drop policy if exists "catálogo legible" on item_satisfied_by;
 create policy "catálogo legible" on item_satisfied_by
   for select to authenticated using (true);
+drop policy if exists "tasas legibles" on fx_rates;
 create policy "tasas legibles" on fx_rates
   for select to authenticated using (true);
 
@@ -54,12 +58,16 @@ create policy "tasas legibles" on fx_rates
 -- ---------------------------------------------------------------------------
 alter table projects enable row level security;
 
+drop policy if exists "ver proyectos propios" on projects;
 create policy "ver proyectos propios" on projects
   for select to authenticated using (is_project_member(id));
+drop policy if exists "crear proyecto propio" on projects;
 create policy "crear proyecto propio" on projects
   for insert to authenticated with check (created_by = auth.uid());
+drop policy if exists "editar si owner" on projects;
 create policy "editar si owner" on projects
   for update to authenticated using (is_project_owner(id));
+drop policy if exists "borrar si owner" on projects;
 create policy "borrar si owner" on projects
   for delete to authenticated using (is_project_owner(id));
 
@@ -68,10 +76,13 @@ create policy "borrar si owner" on projects
 -- ---------------------------------------------------------------------------
 alter table project_members enable row level security;
 
+drop policy if exists "ver miembros del proyecto" on project_members;
 create policy "ver miembros del proyecto" on project_members
   for select to authenticated using (is_project_member(project_id));
+drop policy if exists "editar mi propia fila" on project_members;
 create policy "editar mi propia fila" on project_members
   for update to authenticated using (user_id = auth.uid());
+drop policy if exists "el owner saca miembros" on project_members;
 create policy "el owner saca miembros" on project_members
   for delete to authenticated using (is_project_owner(project_id) or user_id = auth.uid());
 
@@ -81,10 +92,13 @@ create policy "el owner saca miembros" on project_members
 -- ---------------------------------------------------------------------------
 alter table project_invites enable row level security;
 
+drop policy if exists "el owner ve sus invitaciones" on project_invites;
 create policy "el owner ve sus invitaciones" on project_invites
   for select to authenticated using (is_project_owner(project_id));
+drop policy if exists "el owner invita" on project_invites;
 create policy "el owner invita" on project_invites
   for insert to authenticated with check (is_project_owner(project_id) and created_by = auth.uid());
+drop policy if exists "el owner revoca" on project_invites;
 create policy "el owner revoca" on project_invites
   for delete to authenticated using (is_project_owner(project_id));
 
@@ -96,18 +110,22 @@ alter table payers           enable row level security;
 alter table products         enable row level security;
 alter table checklist_states enable row level security;
 
+drop policy if exists "acceso de miembro" on project_settings;
 create policy "acceso de miembro" on project_settings
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on payers;
 create policy "acceso de miembro" on payers
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on products;
 create policy "acceso de miembro" on products
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on checklist_states;
 create policy "acceso de miembro" on checklist_states
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));

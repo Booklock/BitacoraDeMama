@@ -102,12 +102,33 @@ begin
     raise exception 'FALLO: precargó comprobaciones como si fueran productos';
   end if;
 
-  -- Ni combos ni placeholders.
+  -- Sin combos: duplican a los ítems que satisfacen.
   if exists (
     select 1 from products p join checklist_items i on i.code = p.item_code
-    where p.project_id = v_pid and (i.is_bundle or i.is_placeholder)
+    where p.project_id = v_pid and i.is_bundle
   ) then
-    raise exception 'FALLO: precargó combos o placeholders';
+    raise exception 'FALLO: precargó combos';
+  end if;
+
+  -- Los «Otro» SÍ van: son el hueco para lo que el catálogo no cubre. Pero
+  -- nombrados con su categoría, no doce filas idénticas llamadas «Otro».
+  if not exists (
+    select 1 from products p join checklist_items i on i.code = p.item_code
+    where p.project_id = v_pid and i.is_placeholder
+  ) then
+    raise exception 'FALLO: no precargó los ítems «Otro»';
+  end if;
+  if exists (
+    select 1 from products p join checklist_items i on i.code = p.item_code
+    where p.project_id = v_pid and i.is_placeholder and p.name = 'Otro'
+  ) then
+    raise exception 'FALLO: los «Otro» quedaron sin distinguir por categoría';
+  end if;
+  if (select count(distinct name) from products p join checklist_items i on i.code = p.item_code
+      where p.project_id = v_pid and i.is_placeholder)
+     <> (select count(*) from products p join checklist_items i on i.code = p.item_code
+         where p.project_id = v_pid and i.is_placeholder) then
+    raise exception 'FALLO: hay ítems «Otro» con el mismo nombre';
   end if;
 
   -- Todo entra como sugerencia, no como pendiente.
@@ -115,7 +136,7 @@ begin
     raise exception 'FALLO: la precarga no dejó todo como sugerido';
   end if;
 
-  raise notice 'OK · precarga: % productos, sin combos, sin comprobaciones, todo sugerido', v_n;
+  raise notice 'OK · precarga: % productos, con los «Otro» por categoría, sin combos ni comprobaciones', v_n;
 end $$;
 
 -- Una sugerencia no debe aparecer en la lista de regalos de la familia.

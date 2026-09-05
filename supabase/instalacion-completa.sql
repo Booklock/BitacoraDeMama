@@ -2,7 +2,7 @@
 -- GENERADO POR scripts/build-instalador.mjs — no editar a mano.
 --
 -- Pega este archivo entero en el SQL Editor de Supabase y pulsa Run.
--- Contiene 8 migraciones, ya en el orden correcto:
+-- Contiene 9 migraciones, ya en el orden correcto:
 --   1. 20260831000100_schema.sql
 --   2. 20260831000200_rls.sql
 --   3. 20260831000300_functions.sql
@@ -11,6 +11,7 @@
 --   6. 20260831000600_invitacion_un_solo_uso.sql
 --   7. 20260831000700_lista_regalos.sql
 --   8. 20260831000800_sugerencias.sql
+--   9. 20260831000900_incluir_otros.sql
 
 begin;
 
@@ -23,17 +24,32 @@ begin;
 -- ---------------------------------------------------------------------------
 -- Enumeraciones (docs/02 §Enumeraciones)
 -- ---------------------------------------------------------------------------
-create type product_status as enum ('purchased', 'pending', 'wishlist', 'savings');
-create type baby_stage     as enum ('pregnancy', 'm0_3', 'm3_6', 'm6_9', 'm9_12', 'all');
-create type payer_role     as enum ('mother', 'father', 'gift', 'shared', 'extra');
-create type member_role    as enum ('owner', 'member');
-create type fx_source      as enum ('seed', 'api', 'manual');
+do $$ begin
+  create type product_status as enum ('purchased', 'pending', 'wishlist', 'savings');
+exception when duplicate_object then null;
+end $$;
+do $$ begin
+  create type baby_stage     as enum ('pregnancy', 'm0_3', 'm3_6', 'm6_9', 'm9_12', 'all');
+exception when duplicate_object then null;
+end $$;
+do $$ begin
+  create type payer_role     as enum ('mother', 'father', 'gift', 'shared', 'extra');
+exception when duplicate_object then null;
+end $$;
+do $$ begin
+  create type member_role    as enum ('owner', 'member');
+exception when duplicate_object then null;
+end $$;
+do $$ begin
+  create type fx_source      as enum ('seed', 'api', 'manual');
+exception when duplicate_object then null;
+end $$;
 
 -- ---------------------------------------------------------------------------
 -- Catálogo del sistema: 13 QRH y 188 ítems (decisión D3, catálogo fijo)
 -- Sin project_id: son globales. La columna queda prevista para ítems propios.
 -- ---------------------------------------------------------------------------
-create table qrh_categories (
+create table if not exists qrh_categories (
   code            text primary key,
   sort_order      int  not null,
   name_en         text not null,
@@ -42,7 +58,7 @@ create table qrh_categories (
   is_manual       boolean not null default false
 );
 
-create table checklist_items (
+create table if not exists checklist_items (
   code               text primary key,
   qrh_code           text not null references qrh_categories(code) on delete cascade,
   sort_order         int  not null,
@@ -52,20 +68,20 @@ create table checklist_items (
   project_id         uuid,  -- null = ítem del sistema; previsto para D3 futura
   unique (qrh_code, sort_order)
 );
-create index on checklist_items (qrh_code);
+create index if not exists idx_checklist_items_qrh_code on checklist_items (qrh_code);
 
 -- Mapa de combos: qué compras completan este ítem (docs/01 §6.3)
-create table item_satisfied_by (
+create table if not exists item_satisfied_by (
   item_code        text not null references checklist_items(code) on delete cascade,
   source_item_code text not null references checklist_items(code) on delete cascade,
   primary key (item_code, source_item_code)
 );
-create index on item_satisfied_by (source_item_code);
+create index if not exists idx_item_satisfied_by_source_item_code on item_satisfied_by (source_item_code);
 
 -- ---------------------------------------------------------------------------
 -- Tipos de cambio: fuente única de verdad, USD como base (decisión D7)
 -- ---------------------------------------------------------------------------
-create table fx_rates (
+create table if not exists fx_rates (
   currency_code text primary key,
   symbol        text not null,
   label_es      text not null,
@@ -77,14 +93,14 @@ create table fx_rates (
 -- ---------------------------------------------------------------------------
 -- Proyectos y miembros (decisión D4: una pareja = dos usuarios, un proyecto)
 -- ---------------------------------------------------------------------------
-create table projects (
+create table if not exists projects (
   id         uuid primary key default gen_random_uuid(),
   name       text not null default 'Mi bitácora',
   created_by uuid not null references auth.users(id) on delete cascade,
   created_at timestamptz not null default now()
 );
 
-create table project_settings (
+create table if not exists project_settings (
   project_id       uuid primary key references projects(id) on delete cascade,
   currency_code    text not null default 'USD',
   custom_symbol    text,
@@ -95,7 +111,7 @@ create table project_settings (
   updated_at       timestamptz not null default now()
 );
 
-create table payers (
+create table if not exists payers (
   id         uuid primary key default gen_random_uuid(),
   project_id uuid not null references projects(id) on delete cascade,
   role       payer_role not null,
@@ -103,9 +119,9 @@ create table payers (
   sort_order int not null,
   is_active  boolean not null default true
 );
-create index on payers (project_id);
+create index if not exists idx_payers_project_id on payers (project_id);
 
-create table project_members (
+create table if not exists project_members (
   project_id uuid not null references projects(id) on delete cascade,
   user_id    uuid not null references auth.users(id) on delete cascade,
   role       member_role not null default 'member',
@@ -113,9 +129,9 @@ create table project_members (
   joined_at  timestamptz not null default now(),
   primary key (project_id, user_id)
 );
-create index on project_members (user_id);
+create index if not exists idx_project_members_user_id on project_members (user_id);
 
-create table project_invites (
+create table if not exists project_invites (
   code       text primary key,
   project_id uuid not null references projects(id) on delete cascade,
   created_by uuid not null references auth.users(id) on delete cascade,
@@ -123,12 +139,12 @@ create table project_invites (
   used_at    timestamptz,
   used_by    uuid references auth.users(id) on delete set null
 );
-create index on project_invites (project_id);
+create index if not exists idx_project_invites_project_id on project_invites (project_id);
 
 -- ---------------------------------------------------------------------------
 -- Inventario (= hoja Inventory). Sin límite de 207 filas.
 -- ---------------------------------------------------------------------------
-create table products (
+create table if not exists products (
   id                uuid primary key default gen_random_uuid(),
   project_id        uuid not null references projects(id) on delete cascade,
   name              text not null,
@@ -151,14 +167,14 @@ create table products (
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now()
 );
-create index on products (project_id);
-create index on products (project_id, item_code);
-create index on products (project_id, status);
+create index if not exists idx_products_project_id on products (project_id);
+create index if not exists idx_products_project_id_item_code on products (project_id, item_code);
+create index if not exists idx_products_project_id_status on products (project_id, status);
 
 -- ---------------------------------------------------------------------------
 -- Overrides de checklist: sólo lo editable de la hoja QRH Checklists
 -- ---------------------------------------------------------------------------
-create table checklist_states (
+create table if not exists checklist_states (
   project_id       uuid not null references projects(id) on delete cascade,
   item_code        text not null references checklist_items(code) on delete cascade,
   not_applicable   boolean not null default false,
@@ -179,11 +195,11 @@ begin
   return new;
 end $$;
 
-create trigger products_touch          before update on products
+create or replace trigger products_touch          before update on products
   for each row execute function touch_updated_at();
-create trigger checklist_states_touch  before update on checklist_states
+create or replace trigger checklist_states_touch  before update on checklist_states
   for each row execute function touch_updated_at();
-create trigger project_settings_touch  before update on project_settings
+create or replace trigger project_settings_touch  before update on project_settings
   for each row execute function touch_updated_at();
 
 -- ==========================================================================
@@ -231,12 +247,16 @@ alter table checklist_items   enable row level security;
 alter table item_satisfied_by enable row level security;
 alter table fx_rates          enable row level security;
 
+drop policy if exists "catálogo legible" on qrh_categories;
 create policy "catálogo legible" on qrh_categories
   for select to authenticated using (true);
+drop policy if exists "catálogo legible" on checklist_items;
 create policy "catálogo legible" on checklist_items
   for select to authenticated using (true);
+drop policy if exists "catálogo legible" on item_satisfied_by;
 create policy "catálogo legible" on item_satisfied_by
   for select to authenticated using (true);
+drop policy if exists "tasas legibles" on fx_rates;
 create policy "tasas legibles" on fx_rates
   for select to authenticated using (true);
 
@@ -245,12 +265,16 @@ create policy "tasas legibles" on fx_rates
 -- ---------------------------------------------------------------------------
 alter table projects enable row level security;
 
+drop policy if exists "ver proyectos propios" on projects;
 create policy "ver proyectos propios" on projects
   for select to authenticated using (is_project_member(id));
+drop policy if exists "crear proyecto propio" on projects;
 create policy "crear proyecto propio" on projects
   for insert to authenticated with check (created_by = auth.uid());
+drop policy if exists "editar si owner" on projects;
 create policy "editar si owner" on projects
   for update to authenticated using (is_project_owner(id));
+drop policy if exists "borrar si owner" on projects;
 create policy "borrar si owner" on projects
   for delete to authenticated using (is_project_owner(id));
 
@@ -259,10 +283,13 @@ create policy "borrar si owner" on projects
 -- ---------------------------------------------------------------------------
 alter table project_members enable row level security;
 
+drop policy if exists "ver miembros del proyecto" on project_members;
 create policy "ver miembros del proyecto" on project_members
   for select to authenticated using (is_project_member(project_id));
+drop policy if exists "editar mi propia fila" on project_members;
 create policy "editar mi propia fila" on project_members
   for update to authenticated using (user_id = auth.uid());
+drop policy if exists "el owner saca miembros" on project_members;
 create policy "el owner saca miembros" on project_members
   for delete to authenticated using (is_project_owner(project_id) or user_id = auth.uid());
 
@@ -272,10 +299,13 @@ create policy "el owner saca miembros" on project_members
 -- ---------------------------------------------------------------------------
 alter table project_invites enable row level security;
 
+drop policy if exists "el owner ve sus invitaciones" on project_invites;
 create policy "el owner ve sus invitaciones" on project_invites
   for select to authenticated using (is_project_owner(project_id));
+drop policy if exists "el owner invita" on project_invites;
 create policy "el owner invita" on project_invites
   for insert to authenticated with check (is_project_owner(project_id) and created_by = auth.uid());
+drop policy if exists "el owner revoca" on project_invites;
 create policy "el owner revoca" on project_invites
   for delete to authenticated using (is_project_owner(project_id));
 
@@ -287,18 +317,22 @@ alter table payers           enable row level security;
 alter table products         enable row level security;
 alter table checklist_states enable row level security;
 
+drop policy if exists "acceso de miembro" on project_settings;
 create policy "acceso de miembro" on project_settings
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on payers;
 create policy "acceso de miembro" on payers
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on products;
 create policy "acceso de miembro" on products
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
+drop policy if exists "acceso de miembro" on checklist_states;
 create policy "acceso de miembro" on checklist_states
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
@@ -1057,9 +1091,12 @@ grant execute on function join_project_with_code(text) to authenticated;
 -- acceso directo a las tablas: todo pasa por funciones que sólo devuelven lo
 -- que la familia debe ver.
 
-create type share_kind as enum ('registry');
+do $$ begin
+  create type share_kind as enum ('registry');
+exception when duplicate_object then null;
+end $$;
 
-create table share_links (
+create table if not exists share_links (
   token      text primary key,
   project_id uuid not null references projects(id) on delete cascade,
   kind       share_kind not null default 'registry',
@@ -1067,19 +1104,20 @@ create table share_links (
   created_at timestamptz not null default now(),
   revoked_at timestamptz
 );
-create index on share_links (project_id);
+create index if not exists idx_share_links_project_id on share_links (project_id);
 
 alter table share_links enable row level security;
 
 -- Sólo los miembros ven y gestionan los enlaces de su propio proyecto.
 -- Quien use el enlace no toca esta tabla: entra por las funciones de abajo.
+drop policy if exists "miembros gestionan sus enlaces" on share_links;
 create policy "miembros gestionan sus enlaces" on share_links
   for all to authenticated
   using (is_project_member(project_id)) with check (is_project_member(project_id));
 
 -- Quién se apuntó a comprar cada cosa.
-alter table products add column reserved_by_name text;
-alter table products add column reserved_at      timestamptz;
+alter table products add column if not exists reserved_by_name text;
+alter table products add column if not exists reserved_at      timestamptz;
 
 -- ---------------------------------------------------------------------------
 -- Crear y revocar el enlace
@@ -1412,6 +1450,63 @@ begin
   where q.preload
     and not i.is_bundle
     and not i.is_placeholder
+    -- Idempotente: si ya se precargó, no duplica.
+    and not exists (
+      select 1 from products p
+      where p.project_id = p_project_id and p.item_code = i.code
+    )
+  order by q.sort_order, i.sort_order;
+
+  get diagnostics v_insertados = row_count;
+  return v_insertados;
+end $$;
+
+revoke all on function precargar_sugerencias(uuid) from public;
+grant execute on function precargar_sugerencias(uuid) to authenticated;
+
+-- ==========================================================================
+-- 20260831000900_incluir_otros.sql
+-- ==========================================================================
+-- Bitácora de Mamá · Incluir los «Otro» en la lista recomendada
+--
+-- La precarga los dejaba fuera por considerarlos placeholders. Pero son
+-- justamente el hueco para lo que el catálogo no cubre: sin ellos, una familia
+-- que compra algo fuera de la lista no tiene dónde apuntarlo dentro de su
+-- categoría. Se incluyen, nombrados con su categoría para que no aparezcan
+-- trece filas idénticas llamadas «Otro».
+--
+-- «Llegada a casa» sigue fuera: sus ítems son comprobaciones («Cuarto listo»),
+-- no compras, y viven en la pestaña de checklists.
+
+create or replace function precargar_sugerencias(p_project_id uuid)
+returns int
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_insertados int;
+begin
+  if not is_project_member(p_project_id) then
+    raise exception 'No tienes acceso a esta bitácora';
+  end if;
+
+  insert into products (project_id, name, qrh_code, item_code, qty, status, stage)
+  select
+    p_project_id,
+    case
+      when i.is_placeholder then 'Otro — ' || q.name_es
+      else coalesce(i.name_es, i.name_en)
+    end,
+    i.qrh_code,
+    i.code,
+    greatest(i.default_qty_needed, 1),
+    'suggested',
+    null
+  from checklist_items i
+  join qrh_categories q on q.code = i.qrh_code
+  where q.preload
+    and not i.is_bundle
     -- Idempotente: si ya se precargó, no duplica.
     and not exists (
       select 1 from products p
