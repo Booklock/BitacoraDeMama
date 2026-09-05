@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useApp } from '@/lib/estado/ProveedorDatos';
 import { BarraProgreso, Cifra, ListaBarras, Tarjeta } from '@/components/ui';
 import { formatearDinero } from '@/lib/engine/money';
-import { ESTADOS_DECIDIDOS } from '@/lib/engine/types';
+import { ESTADOS_QUE_COMPLETAN } from '@/lib/engine/types';
 import {
   flightPlan, gastoPorPagador, progresoPorEtapa, resumenGeneral, resumenPorQrh, totalApartado,
 } from '@/lib/engine/dashboard';
@@ -33,9 +33,13 @@ export default function DashboardPage() {
     [productos, tasas, moneda],
   );
 
-  const decididos = productos.filter((p) => ESTADOS_DECIDIDOS.includes(p.status));
+  // Una bitácora recién creada trae la lista recomendada entera pendiente y
+  // sin precios: sus gráficas serían todas cero, que parece una app rota.
+  const sinEstrenar =
+    productos.length > 0 &&
+    productos.every((p) => p.price == null && !ESTADOS_QUE_COMPLETAN.includes(p.status));
 
-  if (decididos.length === 0) {
+  if (productos.length === 0 || sinEstrenar) {
     return (
       <div className="space-y-5">
         <FlightPlanCard plan={plan} />
@@ -44,10 +48,10 @@ export default function DashboardPage() {
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-tinta-suave">
             {productos.length > 0 ? (
               <>
-                Tu inventario ya trae <strong className="text-tinta">{productos.length} sugerencias</strong>{' '}
-                de lo que suele hacer falta. Todavía no hay números aquí porque son
-                propuestas, no decisiones: marca lo que ya compraste o lo que quieres,
-                y este panel cobra vida.
+                Tu inventario ya trae{' '}
+                <strong className="text-tinta">{productos.length} productos</strong> pendientes
+                de lo que suele hacer falta. Ponles precio y marca lo que vayas
+                comprando: los checklists se marcan solos y este panel cobra vida.
               </>
             ) : (
               <>
@@ -62,7 +66,7 @@ export default function DashboardPage() {
               href="/inventario"
               className="rounded-lg bg-verde px-4 py-2 text-sm font-medium text-white hover:bg-verde-oscuro"
             >
-              {productos.length > 0 ? 'Ver la lista recomendada' : 'Agregar mi primer producto'}
+              {productos.length > 0 ? 'Ir a mi lista' : 'Agregar mi primer producto'}
             </Link>
             <Link
               href="/checklists"

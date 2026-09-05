@@ -164,3 +164,31 @@ el tipo de cambio del día, igual que una compra propia. En el inventario aparec
 por otra persona. Es un enlace familiar y el coste de equivocarse es bajo;
 resolverlo bien exigiría identificar a cada persona, que es justo lo que
 queríamos evitar. Generar un enlace nuevo invalida el anterior.
+
+
+## D10 · Todo nace «Pendiente», y la lista de regalos exige precio
+
+**Decisión.** La lista precargada entra entera como **Pendiente**. Se retira el
+estado «Sugerido» que introdujo D9.
+
+**Por qué.** Quien abre su bitácora por primera vez espera ver todo pendiente
+por comprar, no un estado intermedio que hay que aprender. La distinción entre
+«lo propuso la app» y «lo decidimos nosotros» era correcta en el modelo y
+confusa en la pantalla.
+
+**El problema que resolvía sigue existiendo.** Si todo nace pendiente y la lista
+de regalos muestra lo pendiente, la abuela abre el enlace y ve 165 filas en
+blanco. Se resuelve con una regla mejor: **la lista de regalos sólo muestra
+productos con precio.**
+
+Es más honesta que el estado aparte. Un producto sin precio tampoco es un
+regalo que alguien pueda evaluar —no sabe cuánto cuesta ni dónde encontrarlo—,
+y poner el precio es exactamente la señal de que la familia ya lo investigó y
+de verdad lo quiere. El inventario tiene un filtro «Sin precio» para ver de un
+vistazo qué falta por completar.
+
+**Consecuencias.** La migración pasa a pendiente lo ya precargado como
+«sugerido». El dashboard detecta la bitácora sin estrenar por otro criterio:
+ningún producto con precio y ninguno comprado. Y se añade `reiniciar_inventario()`,
+que borra todo y vuelve a dejar la lista limpia — necesario en la beta, cuando
+una bitácora se llena de pruebas.

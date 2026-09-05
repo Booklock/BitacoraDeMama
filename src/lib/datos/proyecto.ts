@@ -181,6 +181,18 @@ export async function borrarPagador(supabase: SupabaseClient, id: string): Promi
   if (error) throw error;
 }
 
+/** Borra el inventario y vuelve a dejar la lista recomendada limpia.
+ *  Pensado para la beta, cuando una bitácora se llenó de pruebas. */
+export async function reiniciarInventario(
+  supabase: SupabaseClient, projectId: string,
+): Promise<number> {
+  const { data, error } = await supabase.rpc('reiniciar_inventario', {
+    p_project_id: projectId,
+  });
+  if (error) throw error;
+  return (data as number) ?? 0;
+}
+
 export async function crearCodigoInvitacion(
   supabase: SupabaseClient, projectId: string,
 ): Promise<string> {

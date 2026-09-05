@@ -9,19 +9,18 @@ import { formatearDinero, precioConvertido, simbolo } from '@/lib/engine/money';
 import { ETIQUETAS_ETAPA } from '@/lib/engine/dashboard';
 import type { Status } from '@/lib/engine/types';
 
-const FILTROS_ESTADO: { valor: Status | 'todos' | 'decididos'; texto: string }[] = [
+const FILTROS_ESTADO: { valor: Status | 'todos' | 'sin_precio'; texto: string }[] = [
   { valor: 'todos', texto: 'Todos' },
-  { valor: 'decididos', texto: 'Lo que decidimos' },
-  { valor: 'suggested', texto: 'Sugeridos' },
-  { valor: 'purchased', texto: 'Comprado' },
   { valor: 'pending', texto: 'Pendiente' },
+  { valor: 'purchased', texto: 'Comprado' },
   { valor: 'wishlist', texto: 'Deseo' },
   { valor: 'savings', texto: 'Apartado' },
+  { valor: 'sin_precio', texto: 'Sin precio' },
 ];
 
 export default function InventarioPage() {
   const { productos, ajustes, pagadores, tasas, catalogo, borrarProducto } = useApp();
-  const [filtroEstado, setFiltroEstado] = useState<Status | 'todos' | 'decididos'>('todos');
+  const [filtroEstado, setFiltroEstado] = useState<Status | 'todos' | 'sin_precio'>('todos');
   const [filtroQrh, setFiltroQrh] = useState<string>('todos');
   const [busqueda, setBusqueda] = useState('');
   const [abierto, setAbierto] = useState(false);
@@ -30,16 +29,18 @@ export default function InventarioPage() {
   const nombrePagador = (id: string | null) =>
     pagadores.find((p) => p.id === id)?.name ?? '—';
 
-  const sugeridos = useMemo(
-    () => productos.filter((p) => p.status === 'suggested').length,
+  // Un producto sin precio no llega a la lista de regalos de la familia:
+  // nadie puede evaluar un regalo del que no sabe el coste.
+  const sinPrecio = useMemo(
+    () => productos.filter((p) => p.price == null).length,
     [productos],
   );
 
   const visibles = useMemo(
     () =>
       productos.filter((p) => {
-        if (filtroEstado === 'decididos' && p.status === 'suggested') return false;
-        if (filtroEstado !== 'todos' && filtroEstado !== 'decididos' && p.status !== filtroEstado) {
+        if (filtroEstado === 'sin_precio' && p.price != null) return false;
+        if (filtroEstado !== 'todos' && filtroEstado !== 'sin_precio' && p.status !== filtroEstado) {
           return false;
         }
         if (filtroQrh !== 'todos' && p.qrhCode !== filtroQrh) return false;
@@ -109,12 +110,12 @@ export default function InventarioPage() {
 
       <p className="text-sm text-tinta-suave">
         {visibles.length} de {productos.length} productos
-        {sugeridos > 0 && filtroEstado === 'todos' && (
+        {sinPrecio > 0 && filtroEstado === 'todos' && (
           <>
             {' · '}
             <span>
-              {sugeridos} son sugerencias de la app. Marca el estado de lo que ya
-              tengas o quieras, y borra lo que no aplique.
+              {sinPrecio} todavía sin precio. Ponle precio a lo que quieras que
+              aparezca en la lista de regalos de la familia.
             </span>
           </>
         )}

@@ -131,25 +131,62 @@ begin
     raise exception 'FALLO: hay ítems «Otro» con el mismo nombre';
   end if;
 
-  -- Todo entra como sugerencia, no como pendiente.
-  if exists (select 1 from products where project_id = v_pid and status <> 'suggested') then
-    raise exception 'FALLO: la precarga no dejó todo como sugerido';
+  -- Todo entra PENDIENTE: nada comprado, nada apartado, nada con precio.
+  if exists (select 1 from products where project_id = v_pid and status <> 'pending') then
+    raise exception 'FALLO: la precarga dejó productos que no están pendientes';
+  end if;
+  if exists (select 1 from products where project_id = v_pid and price is not null) then
+    raise exception 'FALLO: la precarga puso precios';
+  end if;
+  if exists (select 1 from products where project_id = v_pid and payer_id is not null) then
+    raise exception 'FALLO: la precarga asignó pagadores';
   end if;
 
-  raise notice 'OK · precarga: % productos, con los «Otro» por categoría, sin combos ni comprobaciones', v_n;
+  raise notice 'OK · precarga: % productos, todos pendientes y sin precio', v_n;
 end $$;
 
--- Una sugerencia no debe aparecer en la lista de regalos de la familia.
+-- Lo precargado no debe inundar la lista de regalos: sin precio no entra.
 do $$
 declare
   v_pid   uuid := (select id from mis_proyectos order by created_at limit 1);
   v_token text;
+  v_id    uuid;
 begin
   v_token := crear_enlace_regalos(v_pid);
   if exists (select 1 from ver_lista_regalos(v_token)) then
-    raise exception 'FALLO: las sugerencias se cuelan en la lista de regalos';
+    raise exception 'FALLO: la lista precargada inunda la lista de los abuelos';
   end if;
-  raise notice 'OK · las sugerencias no llenan la lista de los abuelos';
+  raise notice 'OK · sin precio no se llena la lista de los abuelos';
+
+  -- En cuanto la familia le pone precio, sí aparece.
+  select id into v_id from products where project_id = v_pid limit 1;
+  update products set price = 120, currency_code = 'USD' where id = v_id;
+  if not exists (select 1 from ver_lista_regalos(v_token) where id = v_id) then
+    raise exception 'FALLO: un producto con precio no llega a la lista de regalos';
+  end if;
+  raise notice 'OK · al ponerle precio, el producto sí llega a la familia';
+end $$;
+
+-- Reiniciar deja la bitácora como recién creada.
+do $$
+declare
+  v_pid uuid := (select id from mis_proyectos order by created_at limit 1);
+  v_n   int;
+begin
+  update products set status = 'purchased', price = 99
+    where project_id = v_pid and item_code = 'QRH-001-01';
+
+  v_n := reiniciar_inventario(v_pid);
+  if v_n < 100 then
+    raise exception 'FALLO: reiniciar dejó sólo % productos', v_n;
+  end if;
+  if exists (select 1 from products where project_id = v_pid and status <> 'pending') then
+    raise exception 'FALLO: reiniciar no dejó todo pendiente';
+  end if;
+  if exists (select 1 from products where project_id = v_pid and price is not null) then
+    raise exception 'FALLO: reiniciar conservó precios';
+  end if;
+  raise notice 'OK · reiniciar deja % productos pendientes y sin precio', v_n;
 end $$;
 
 reset role;

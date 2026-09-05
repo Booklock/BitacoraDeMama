@@ -11,7 +11,7 @@ import { MONEDAS } from '@/lib/monedas';
 import { missionId } from '@/lib/engine/dashboard';
 import {
   agregarPagador, borrarPagador, cargarProyecto, crearCodigoInvitacion,
-  guardarAjustes, renombrarPagador, type Proyecto,
+  guardarAjustes, reiniciarInventario, renombrarPagador, type Proyecto,
 } from '@/lib/datos/proyecto';
 import { crearEnlaceRegalos } from '@/lib/datos/regalos';
 
@@ -379,6 +379,30 @@ export default function ConfiguracionPage() {
             )}
           </div>
         </Tarjeta>
+
+        {/* Empezar de cero */}
+        {miRol === 'owner' && (
+          <Tarjeta titulo="Volver a empezar">
+            <p className="-mt-2 text-sm text-tinta-suave">
+              Borra <strong>todo</strong> tu inventario y tus checklists, y deja otra vez
+              la lista recomendada limpia. Útil si la bitácora se llenó de pruebas.
+              No se puede deshacer.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (!confirm('Se borrarán todos tus productos y checklists. ¿Seguro?')) return;
+                void conProyecto(async () => {
+                  const n = await reiniciarInventario(createClient(), id);
+                  avisar(`Inventario reiniciado con ${n} productos.`);
+                }, 'Inventario reiniciado.');
+              }}
+              className="mt-3 rounded-lg px-4 py-2 text-sm font-medium text-tinta ring-1 ring-alerta hover:bg-alerta/30"
+            >
+              Borrar y volver a empezar
+            </button>
+          </Tarjeta>
+        )}
       </div>
     </div>
   );

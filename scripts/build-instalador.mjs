@@ -19,6 +19,9 @@ const partes = [
   ``,
   `begin;`,
   ``,
+  `-- Los "does not exist, skipping" de una instalación desde cero son ruido.`,
+  `set local client_min_messages to warning;`,
+  ``,
 ];
 
 for (const archivo of archivos) {
